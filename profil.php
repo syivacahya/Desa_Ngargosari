@@ -11,27 +11,29 @@ if(!isset($_SESSION['login'])){
 <title>Profil Desa</title>
 
 <style>
+
 *{
+    margin:0;
+    padding:0;
     box-sizing:border-box;
     font-family:Arial, sans-serif;
 }
 
 body{
-    margin:0;
-    background:#f3f6f4;
+    background:#f2f5f3;
     display:flex;
 }
 
 /* SIDEBAR */
 .sidebar{
-    width:220px;
+    width:230px;
     background:#2f5e2b;
     min-height:100vh;
-    color:white;
     padding:20px;
+    color:white;
 }
 
-.sidebar h3{
+.sidebar h2{
     text-align:center;
     margin-bottom:30px;
 }
@@ -40,57 +42,60 @@ body{
     display:block;
     color:white;
     text-decoration:none;
-    padding:10px;
+    padding:12px;
     margin:8px 0;
-    border-radius:5px;
+    border-radius:6px;
+    transition:0.3s;
 }
 
-.sidebar a:hover,
+.sidebar a:hover{
+    background:#7fb56a;
+}
+
 .sidebar .active{
     background:#7fb56a;
 }
 
-/* CONTENT */
+/* MAIN */
 .main{
     flex:1;
-    padding:30px;
+    padding:25px;
 }
 
-/* CARD */
-.container{
+/* HEADER */
+.header{
     background:white;
-    padding:30px;
-    border-radius:12px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.15);
-}
-
-.top{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    border-bottom:2px solid #7fb56a;
-    padding-bottom:15px;
+    padding:20px;
+    border-radius:10px;
     margin-bottom:25px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
 }
 
-.top h2{
+.header h2{
     color:#2f5e2b;
 }
 
 /* FORM */
+.form-box{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 3px 12px rgba(0,0,0,0.1);
+}
+
 label{
-    display:block;
-    margin-top:15px;
     font-weight:bold;
     color:#2f5e2b;
+    display:block;
+    margin-top:15px;
 }
 
 input, textarea{
     width:100%;
     padding:10px;
-    margin-top:6px;
-    border:1px solid #ccc;
+    margin-top:5px;
     border-radius:6px;
+    border:1px solid #ccc;
 }
 
 .grid-2{
@@ -106,20 +111,21 @@ input, textarea{
 }
 
 button{
-    margin-top:25px;
-    padding:12px;
-    width:100%;
-    border:none;
     background:#2f5e2b;
     color:white;
-    font-size:16px;
+    border:none;
+    padding:12px;
+    width:100%;
     border-radius:6px;
+    margin-top:25px;
+    font-size:16px;
     cursor:pointer;
 }
 
 button:hover{
     background:#244a21;
 }
+
 </style>
 </head>
 
@@ -128,71 +134,91 @@ button:hover{
 <!-- SIDEBAR -->
 <div class="sidebar">
 
-    <h3>Admin Desa</h3>
+<h2>ADMIN DESA</h2>
 
-    <a href="dashboard.php">Dashboard</a>
-    <a href="profil_desa.php" class="active">Profil Desa</a>
-    <a href="produk.php">Produk UMKM</a>
-    <a href="logout.php">Logout</a>
+<a href="dashboard.php">🏠 Dashboard</a>
+<a href="profil.php" class="active">📌 Profil Desa</a>
+<a href="infografis.php">📊 Infografis</a>
+<a href="umkm.php">🏪 UMKM</a>
+<a href="logout.php">🚪 Logout</a>
 
 </div>
 
 
-<!-- MAIN CONTENT -->
+<!-- MAIN -->
 <div class="main">
 
-    <div class="container">
+<!-- HEADER -->
+<div class="header">
+    <h2>Profil Desa</h2>
+    <p>Kelola informasi profil Desa Ngargosari</p>
+</div>
 
-        <div class="top">
-            <h2>Profil Desa</h2>
+
+<!-- FORM -->
+<div class="form-box">
+
+<form method="post">
+
+    <label>Visi Desa</label>
+    <input type="text" name="visi">
+
+    <label>Misi Desa</label>
+    <textarea name="misi" rows="3"></textarea>
+
+    <label>Sejarah Desa</label>
+    <textarea name="sejarah" rows="3"></textarea>
+
+
+    <div class="grid-2">
+
+        <div>
+            <label>Luas Wilayah</label>
+            <input type="text" name="luas">
         </div>
 
-        <form method="post">
-
-            <label>Visi</label>
-            <input type="text" name="visi">
-
-            <label>Misi</label>
-            <textarea name="misi" rows="3"></textarea>
-
-            <label>Sejarah</label>
-            <textarea name="sejarah" rows="3"></textarea>
-
-            <div class="grid-2">
-                <div>
-                    <label>Luas Wilayah</label>
-                    <input type="text" name="luas">
-                </div>
-                <div>
-                    <label>Jumlah RT</label>
-                    <input type="number" name="rt">
-                </div>
-            </div>
-
-            <label>Batas Wilayah</label>
-            <div class="grid-4">
-                <input type="text" name="utara" placeholder="Utara">
-                <input type="text" name="barat" placeholder="Barat">
-                <input type="text" name="timur" placeholder="Timur">
-                <input type="text" name="selatan" placeholder="Selatan">
-            </div>
-
-            <div class="grid-2">
-                <div>
-                    <label>Jumlah Dusun</label>
-                    <input type="number" name="jumlah_dusun">
-                </div>
-                <div>
-                    <label>Nama Dusun</label>
-                    <textarea name="nama_dusun" rows="3"></textarea>
-                </div>
-            </div>
-
-            <button>Simpan Profil</button>
-
-        </form>
+        <div>
+            <label>Jumlah RT</label>
+            <input type="number" name="rt">
+        </div>
 
     </div>
+
+
+    <label>Batas Wilayah</label>
+
+    <div class="grid-4">
+
+        <input type="text" name="utara" placeholder="Utara">
+        <input type="text" name="barat" placeholder="Barat">
+        <input type="text" name="timur" placeholder="Timur">
+        <input type="text" name="selatan" placeholder="Selatan">
+
+    </div>
+
+
+    <div class="grid-2">
+
+        <div>
+            <label>Jumlah Dusun</label>
+            <input type="number" name="dusun">
+        </div>
+
+        <div>
+            <label>Nama Dusun</label>
+            <textarea name="nama_dusun" rows="3"></textarea>
+        </div>
+
+    </div>
+
+
+    <button type="submit" name="simpan">
+        💾 Simpan Profil
+    </button>
+
+</form>
+
+</div>
 
 </div>
 
