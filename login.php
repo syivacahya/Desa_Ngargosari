@@ -1,46 +1,142 @@
 <?php
 session_start();
-include 'koneksi.php';
+include "koneksi.php";
 
 if(isset($_POST['login'])){
-    $user = $_POST['username'];
-    $pass = md5($_POST['password']);
 
-    $q = mysqli_query($conn,
+    $email = $_POST['email'];
+    $pass  = md5($_POST['password']);
+
+    $query = mysqli_query($conn,
         "SELECT * FROM admin 
-         WHERE username='$user' AND password='$pass'"
+         WHERE username='$email' 
+         AND password='$pass'"
     );
 
-    if(mysqli_num_rows($q) > 0){
-        $_SESSION['login'] = true;
+    if(mysqli_num_rows($query) > 0){
+
+        $_SESSION['admin'] = $email;
         header("Location: dashboard.php");
+
     } else {
-        echo "<script>alert('Login gagal');</script>";
+
+        $error = "Email atau Password salah!";
     }
 }
 ?>
-
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+<meta charset="UTF-8">
 <title>Login Admin</title>
+
 <style>
-body{font-family:Arial;background:#0a7f3f}
-form{width:300px;margin:120px auto;background:white;padding:20px;border-radius:8px}
-input,button{width:100%;padding:10px;margin:8px 0}
-button{background:#0a7f3f;color:white;border:none}
+
+*{
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+}
+
+body{
+    background:#f3f6f4;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.login-box{
+    width:380px;
+    background:#7fb56a;
+    padding:40px 30px;
+    border-radius:10px;
+    text-align:center;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+.logo{
+    width:80px;
+    margin-bottom:15px;
+}
+
+h2{
+    color:white;
+    margin-bottom:25px;
+}
+
+.input-group{
+    text-align:left;
+    margin-bottom:15px;
+}
+
+.input-group label{
+    color:white;
+    font-size:14px;
+}
+
+.input-group input{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:5px;
+    margin-top:5px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#2f5e2b;
+    border:none;
+    color:white;
+    font-size:16px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#244a21;
+}
+
+.error{
+    background:#ffdddd;
+    color:#b30000;
+    padding:8px;
+    margin-bottom:15px;
+    border-radius:5px;
+}
+
 </style>
 </head>
+
 <body>
 
-<form method="post">
-<h2 align="center">Login Admin</h2>
+<div class="login-box">
 
-<input type="text" name="username" placeholder="Username" required>
-<input type="password" name="password" placeholder="Password" required>
+    <img src="assets/img/logo.png" class="logo">
 
-<button name="login">Login</button>
-</form>
+    <h2>Login Admin</h2>
+
+    <?php if(isset($error)){ ?>
+        <div class="error"><?= $error ?></div>
+    <?php } ?>
+
+    <form method="POST">
+
+        <div class="input-group">
+            <label>Email</label>
+            <input type="text" name="email" placeholder="Masukkan email" required>
+        </div>
+
+        <div class="input-group">
+            <label>Kata Sandi</label>
+            <input type="password" name="password" placeholder="Masukkan password" required>
+        </div>
+
+        <button name="login">Masuk</button>
+
+    </form>
+
+</div>
 
 </body>
 </html>
