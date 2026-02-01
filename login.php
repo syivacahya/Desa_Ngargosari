@@ -2,19 +2,31 @@
 session_start();
 include "koneksi.php";
 
-if(isset($_POST['login'])){
+// kalau sudah login, langsung ke dashboard
+if (isset($_SESSION['login']) && $_SESSION['login'] === true) {
+    header("Location: dashboard.php");
+    exit;
+}
 
-    $email = $_POST['email'];
-    $pass  = md5($_POST['password']);
+if (isset($_POST['login'])) {
 
-    $query = mysqli_query($conn,
+    // amankan input
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = $_POST['password'];
+    $pass_md5 = md5($password);
+
+    // query cek user
+    $query = mysqli_query(
+        $conn,
         "SELECT * FROM admin 
          WHERE username='$email' 
          AND password='$pass_md5'"
     );
 
-    if(mysqli_num_rows($query) > 0){
+    if (mysqli_num_rows($query) === 1) {
 
+        // SET SESSION YANG BENAR
+        $_SESSION['login'] = true;
         $_SESSION['admin'] = $email;
 
         header("Location: dashboard.php");
@@ -112,11 +124,11 @@ button:hover{
 
 <div class="login-box">
 
-    <img src="assets/img/logo.png" class="logo" alt="Logo">
+    <img src="assets/img/logo.png" class="logo">
 
     <h2>Login Admin</h2>
 
-    <?php if(isset($error)){ ?>
+    <?php if (isset($error)) : ?>
         <div class="error"><?= $error ?></div>
     <?php endif; ?>
 
