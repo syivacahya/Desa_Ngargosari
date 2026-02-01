@@ -2,28 +2,41 @@
 session_start();
 include "koneksi.php";
 
-if(isset($_POST['login'])){
+// Jika sudah login, langsung ke dashboard
+if (isset($_SESSION['login'])) {
+    header("Location: dashboard.php");
+    exit;
+}
+
+$error = "";
+
+if (isset($_POST['login'])) {
 
     $email = $_POST['email'];
-    $pass  = md5($_POST['password']);
+    $pass  = md5($_POST['password']); // SESUAI DENGAN DATABASE (MD5)
 
-    $query = mysqli_query($conn,
+    $query = mysqli_query(
+        $conn,
         "SELECT * FROM admin 
          WHERE username='$email' 
          AND password='$pass'"
     );
 
-    if(mysqli_num_rows($query) > 0){
+    if (mysqli_num_rows($query) > 0) {
 
+        // SET SESSION (INI YANG SEBELUMNYA SALAH)
+        $_SESSION['login'] = true;
         $_SESSION['admin'] = $email;
+
         header("Location: dashboard.php");
+        exit;
 
     } else {
-
         $error = "Email atau Password salah!";
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -31,7 +44,6 @@ if(isset($_POST['login'])){
 <title>Login Admin</title>
 
 <style>
-
 *{
     box-sizing:border-box;
     font-family: Arial, sans-serif;
@@ -104,7 +116,6 @@ button:hover{
     margin-bottom:15px;
     border-radius:5px;
 }
-
 </style>
 </head>
 
@@ -112,11 +123,11 @@ button:hover{
 
 <div class="login-box">
 
-    <img src="assets/img/logo.png" class="logo">
+    <img src="assets/img/logo.png" class="logo" alt="Logo">
 
     <h2>Login Admin</h2>
 
-    <?php if(isset($error)){ ?>
+    <?php if($error != ""){ ?>
         <div class="error"><?= $error ?></div>
     <?php } ?>
 
@@ -132,7 +143,7 @@ button:hover{
             <input type="password" name="password" placeholder="Masukkan password" required>
         </div>
 
-        <button name="login">Masuk</button>
+        <button type="submit" name="login">Masuk</button>
 
     </form>
 
