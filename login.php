@@ -2,30 +2,19 @@
 session_start();
 include "koneksi.php";
 
-// Jika sudah login, langsung ke dashboard
-if (isset($_SESSION['login'])) {
-    header("Location: dashboard.php");
-    exit;
-}
-
-$error = "";
-
-if (isset($_POST['login'])) {
+if(isset($_POST['login'])){
 
     $email = $_POST['email'];
-    $pass  = md5($_POST['password']); // SESUAI DENGAN DATABASE (MD5)
+    $pass  = md5($_POST['password']);
 
-    $query = mysqli_query(
-        $conn,
+    $query = mysqli_query($conn,
         "SELECT * FROM admin 
          WHERE username='$email' 
-         AND password='$pass'"
+         AND password='$pass_md5'"
     );
 
-    if (mysqli_num_rows($query) > 0) {
+    if(mysqli_num_rows($query) > 0){
 
-        // SET SESSION (INI YANG SEBELUMNYA SALAH)
-        $_SESSION['login'] = true;
         $_SESSION['admin'] = $email;
 
         header("Location: dashboard.php");
@@ -127,9 +116,9 @@ button:hover{
 
     <h2>Login Admin</h2>
 
-    <?php if($error != ""){ ?>
+    <?php if(isset($error)){ ?>
         <div class="error"><?= $error ?></div>
-    <?php } ?>
+    <?php endif; ?>
 
     <form method="POST">
 
