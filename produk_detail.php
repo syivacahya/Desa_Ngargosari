@@ -183,4 +183,8 @@ footer img{width:55px;margin-bottom:10px}
 <div class="credit">credit 2026</div>
 
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 866081e9b201ded733559b8c119d9a7e7f40a8d4

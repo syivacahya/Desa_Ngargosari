@@ -1,4 +1,8 @@
 <?php
+<<<<<<< HEAD
+=======
+
+>>>>>>> 866081e9b201ded733559b8c119d9a7e7f40a8d4
 include "koneksi.php";
 
 /* PAGINATION */
@@ -15,11 +19,20 @@ $data = mysqli_query($koneksi,"
     LIMIT $mulai, $batas
 ");
 ?>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 866081e9b201ded733559b8c119d9a7e7f40a8d4
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <title>Produk Unggulan Desa</title>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 866081e9b201ded733559b8c119d9a7e7f40a8d4
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
