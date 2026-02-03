@@ -1,7 +1,7 @@
 <?php
-$conn = mysqli_connect("localhost","root","","desa_ngargosari");
+$koneksi = mysqli_connect("localhost","root","","desa_ngargosari");
 
-if(!$conn){
+if(!$koneksi){
     die("Koneksi gagal: " . mysqli_connect_error());
 }
 ?>

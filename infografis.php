@@ -1,284 +1,113 @@
-<?php
-session_start();
-if (!isset($_SESSION['login'])) {
-    header("Location: login.php");
-    exit;
-}
-?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Infografis</title>
-
-<style>
-*{
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
-body{
-    margin:0;
-    background:#f2f2f2;
-}
-
-/* Layout */
-.wrapper{
-    display:flex;
-    min-height:100vh;
-}
-
-/* Sidebar */
-.sidebar{
-    width:230px;
-    background:#3f5f2f;
-    color:white;
-    padding:20px;
-}
-
-.sidebar img{
-    width:100px;
-    display:block;
-    margin:0 auto 30px;
-}
-
-.sidebar a{
-    display:block;
-    color:white;
-    text-decoration:none;
-    padding:12px 15px;
-    margin-bottom:10px;
-    border-radius:6px;
-}
-
-.sidebar a:hover,
-.sidebar a.active{
-    background:#6d8f57;
-}
-
-/* Main */
-.main{
-    flex:1;
-}
-
-/* Header */
-.header{
-    background:#3f5f2f;
-    color:white;
-    padding:20px 30px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.content{
-    padding:30px;
-}
-
-/* Card */
-.card{
-    background:white;
-    border-radius:8px;
-    padding:20px;
-    margin-bottom:25px;
-    border:1px solid #ccc;
-}
-
-.card h2{
-    margin-top:0;
-}
-
-/* Form */
-.form-row{
-    display:grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap:15px;
-    margin-top:15px;
-}
-
-.form-group{
-    display:flex;
-    flex-direction:column;
-}
-
-.form-group label{
-    font-size:14px;
-    margin-bottom:5px;
-}
-
-.form-group input,
-.form-group select{
-    padding:8px;
-    border:1px solid #aaa;
-    border-radius:4px;
-}
-
-.note{
-    font-size:13px;
-    margin-top:10px;
-}
-
-.btn{
-    background:#3f5f2f;
-    color:white;
-    border:none;
-    padding:8px 18px;
-    border-radius:5px;
-    cursor:pointer;
-}
-
-.btn:hover{
-    background:#2e4723;
-}
-
-.btn-right{
-    display:flex;
-    justify-content:flex-end;
-    margin-top:15px;
-}
-
-/* Tabel umur */
-.age-table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:15px;
-}
-
-.age-table th,
-.age-table td{
-    border:1px solid #ccc;
-    padding:8px;
-    text-align:center;
-}
-</style>
+<title>Infografis Desa Ngargosari</title>
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
+<body class="bg-gray-100">
 
-<div class="wrapper">
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <img src="assets/img/logo.png" alt="Logo">
-
-        <a href="dashboard.php">Dashboard</a>
-        <a href="profil_desa.php">Profil Desa</a>
-        <a href="produk.php">Produk Unggulan Desa</a>
-        <a href="infografis.php" class="active">Infografis</a>
-        <a href="logout.php">Logout</a>
+<!-- ================= HEADER ================= -->
+<header class="bg-[#4a6b3c] text-white">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <img src="assets/img/logo.png" class="w-10">
+            <div>
+                <h1 class="font-semibold text-sm">Desa Ngargosari</h1>
+                <p class="text-xs opacity-80">Kecamatan Loano, Kabupaten Purworejo</p>
+            </div>
+        </div>
+        <nav class="flex gap-6 text-sm">
+            <a href="index.php">Home</a>
+            <a href="profil-desa.php">Profil Desa</a>
+            <a href="produk.php">Produk Unggulan Desa</a>
+            <a href="infografis.php" class="font-semibold underline">Infografis</a>
+        </nav>
     </div>
+</header>
 
-    <!-- Main -->
-    <div class="main">
+<!-- ================= CONTENT ================= -->
+<main class="max-w-6xl mx-auto px-6 py-10 space-y-12">
 
-        <!-- Header -->
-        <div class="header">
-            <h2>Infografis</h2>
-            <span>Admin Desa</span>
-        </div>
+<!-- ===== JUDUL ===== -->
+<h2 class="text-xl font-semibold text-gray-800">Jumlah Penduduk</h2>
 
-        <!-- Content -->
-        <div class="content">
+<!-- ===== KARTU DATA ===== -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-            <!-- Jumlah Penduduk -->
-            <div class="card">
-                <h2>Jumlah Penduduk</h2>
+<?php
+// DATA CONTOH (NANTI BISA DIGANTI DATABASE)
+$data = [
+    ["Total Penduduk", "1.300 Jiwa"],
+    ["Kepala Keluarga", "540 Jiwa"],
+    ["Perempuan", "540 Jiwa"],
+    ["Laki-Laki", "540 Jiwa"]
+];
 
-                <label>Tahun Data:
-                    <select>
-                        <option>2024</option>
-                        <option>2023</option>
-                    </select>
-                </label>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Total Penduduk</label>
-                        <input type="number">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Kepala Keluarga</label>
-                        <input type="number">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Laki-laki</label>
-                        <input type="number">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Perempuan</label>
-                        <input type="number">
-                    </div>
-                </div>
-
-                <div class="note">
-                    Catatan: Laki-laki + Perempuan = Total Penduduk
-                </div>
-
-                <div class="btn-right">
-                    <button class="btn">Simpan</button>
-                </div>
-            </div>
-
-            <!-- Kelompok Umur -->
-            <div class="card">
-                <label>Tahun Data:
-                    <select>
-                        <option>2024</option>
-                        <option>2023</option>
-                    </select>
-                </label>
-
-                <table class="age-table">
-                    <tr>
-                        <th>Kelompok Umur</th>
-                        <th>Laki-laki</th>
-                        <th>Perempuan</th>
-                    </tr>
-                    <tr>
-                        <td>0 - 4</td>
-                        <td><input type="number" value="19"></td>
-                        <td><input type="number" value="21"></td>
-                    </tr>
-                    <tr>
-                        <td>5 - 9</td>
-                        <td><input type="number" value="50"></td>
-                        <td><input type="number" value="48"></td>
-                    </tr>
-                    <tr>
-                        <td>10 - 14</td>
-                        <td><input type="number" value="74"></td>
-                        <td><input type="number" value="57"></td>
-                    </tr>
-                    <tr>
-                        <td>15 - 19</td>
-                        <td><input type="number" value="85"></td>
-                        <td><input type="number" value="49"></td>
-                    </tr>
-                    <tr>
-                        <td>20 - 24</td>
-                        <td><input type="number" value="112"></td>
-                        <td><input type="number" value="92"></td>
-                    </tr>
-                    <tr>
-                        <td>25 - 29</td>
-                        <td><input type="number" value="66"></td>
-                        <td><input type="number" value="60"></td>
-                    </tr>
-                </table>
-
-                <div class="btn-right">
-                    <button class="btn">Simpan</button>
-                </div>
-            </div>
-
-        </div>
-
+foreach($data as $d):
+?>
+<div class="bg-[#d8e4c9] rounded-lg p-5 flex items-center gap-4">
+    <div class="w-12 h-12 bg-white rounded-full"></div>
+    <div>
+        <p class="text-sm text-gray-700"><?= $d[0] ?></p>
+        <p class="font-semibold"><?= $d[1] ?></p>
     </div>
 </div>
+<?php endforeach; ?>
+
+</div>
+
+<!-- ===== GRAFIK UMUR ===== -->
+<section class="space-y-6">
+
+<h2 class="text-xl font-semibold text-gray-800">Berdasarkan Kelompok Umur</h2>
+
+<!-- BAR CHART -->
+<div class="bg-white p-6 rounded shadow">
+    <div class="flex items-end gap-3 h-56">
+
+        <?php
+        // DATA GRAFIK (CONTOH)
+        $umur = [70,90,60,100,80,50,70,110,40,85,120,95,60,80];
+        foreach($umur as $i => $v):
+        ?>
+        <div class="flex-1 flex items-end gap-1">
+            <div class="w-3 bg-[#b7cf9d]" style="height:<?= $v ?>%"></div>
+            <div class="w-3 bg-[#3e5c2f]" style="height:<?= $v-20 ?>%"></div>
+        </div>
+        <?php endforeach; ?>
+
+    </div>
+
+    <div class="mt-6 space-y-2">
+        <div class="bg-[#d8e4c9] p-2 rounded text-sm">total kelompok tertinggi</div>
+        <div class="bg-[#3e5c2f] text-white p-2 rounded text-sm">total kelompok terendah</div>
+    </div>
+</div>
+
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-[#4a6b3c] text-white mt-16">
+    <div class="max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-2 gap-6 text-sm">
+        <div>
+            <img src="assets/img/logo.png" class="w-12 mb-3">
+            <p class="font-semibold">Pemerintah Desa Ngargosari</p>
+            <p>Kecamatan Loano, Kabupaten Purworejo</p>
+        </div>
+        <div>
+            <p class="font-semibold mb-2">Hubungi Kami</p>
+            <p>📞 08888888</p>
+            <p>📷 Instagram</p>
+        </div>
+    </div>
+    <div class="text-center text-xs py-3 bg-[#3a562e]">
+        © 2026 Desa Ngargosari
+    </div>
+</footer>
 
 </body>
 </html>
