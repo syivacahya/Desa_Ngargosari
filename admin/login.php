@@ -1,39 +1,38 @@
 <?php
 session_start();
-require_once "../koneksi.php";
+require_once "../koneksi.php"; // PATH FIX
 
-// kalau sudah login, langsung ke dashboard
+// Redirect ke dashboard kalau sudah login
 if (isset($_SESSION['login']) && $_SESSION['login'] === true) {
     header("Location: dashboard.php");
     exit;
 }
 
+$error = "";
+
 if (isset($_POST['login'])) {
+    $username = mysqli_real_escape_string($koneksi, $_POST['username']);
+    $password = md5($_POST['password']); // password = 12345
 
-    // amankan input
-    $email = mysqli_real_escape_string($koneksi, $_POST['email']);
-    $password = $_POST['password'];
-    $pass_md5 = md5($password);
-
-    // query cek user
     $query = mysqli_query(
         $koneksi,
         "SELECT * FROM admin 
-         WHERE username='$email' 
-         AND password='$pass_md5'"
+         WHERE username='$username' 
+         AND password='$password'"
     );
 
-    if (mysqli_num_rows($query) === 1) {
+    if (!$query) {
+        die("Query Error: " . mysqli_error($koneksi));
+    }
 
-        // SET SESSION YANG BENAR
+    if (mysqli_num_rows($query) === 1) {
         $_SESSION['login'] = true;
-        $_SESSION['admin'] = $email;
+        $_SESSION['admin'] = $username;
 
         header("Location: dashboard.php");
         exit;
-
     } else {
-        $error = "Email atau Password salah!";
+        $error = "Username atau Password salah!";
     }
 }
 ?>
@@ -42,112 +41,43 @@ if (isset($_POST['login'])) {
 <html lang="id">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login Admin</title>
-
-<style>
-*{
-    box-sizing:border-box;
-    font-family: Arial, sans-serif;
-}
-
-body{
-    background:#f3f6f4;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-.login-box{
-    width:380px;
-    background:#7fb56a;
-    padding:40px 30px;
-    border-radius:10px;
-    text-align:center;
-    box-shadow:0 5px 15px rgba(0,0,0,0.2);
-}
-
-.logo{
-    width:80px;
-    margin-bottom:15px;
-}
-
-h2{
-    color:white;
-    margin-bottom:25px;
-}
-
-.input-group{
-    text-align:left;
-    margin-bottom:15px;
-}
-
-.input-group label{
-    color:white;
-    font-size:14px;
-}
-
-.input-group input{
-    width:100%;
-    padding:10px;
-    border:none;
-    border-radius:5px;
-    margin-top:5px;
-}
-
-button{
-    width:100%;
-    padding:12px;
-    background:#2f5e2b;
-    border:none;
-    color:white;
-    font-size:16px;
-    border-radius:5px;
-    cursor:pointer;
-}
-
-button:hover{
-    background:#244a21;
-}
-
-.error{
-    background:#ffdddd;
-    color:#b30000;
-    padding:8px;
-    margin-bottom:15px;
-    border-radius:5px;
-}
-</style>
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
 
-<div class="login-box">
+<div class="w-full max-w-sm bg-white- shadow-lg rounded-lg p-8">
+    <div class="flex flex-col items-center mb-6">
+        <img src="../assets/img/logo.png" alt="Logo Desa" class="w-24 mb-3">
+        <h2 class="text-2xl font-bold text-gray-700">Login Admin</h2>
+    </div>
 
-    <img src="../assets/img/logo.png" alt="Logo" width="180">
-
-    <h2>Login Admin</h2>
-
-    <?php if (isset($error)) : ?>
-        <div class="error"><?= $error ?></div>
+    <?php if($error): ?>
+        <div class="bg-red-100 text-red-700 p-3 mb-4 rounded text-center">
+            <?= $error ?>
+        </div>
     <?php endif; ?>
 
-    <form method="POST">
-
-        <div class="input-group">
-            <label>Email</label>
-            <input type="text" name="email" placeholder="Masukkan email" required>
+    <form method="POST" class="space-y-4">
+        <div>
+            <label class="block text-gray-600 mb-1">Username</label>
+            <input type="text" name="username" placeholder="Masukkan username"
+                   class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500">
         </div>
 
-        <div class="input-group">
-            <label>Kata Sandi</label>
-            <input type="password" name="password" placeholder="Masukkan password" required>
+        <div>
+            <label class="block text-gray-600 mb-1">Password</label>
+            <input type="password" name="password" placeholder="Masukkan password"
+                   class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500">
         </div>
 
-        <button type="submit" name="login">Masuk</button>
-
+        <button type="submit" name="login"
+                class="w-full bg-green-700 hover:bg-green-800 text-white py-2 rounded font-semibold transition-colors">
+            Masuk
+        </button>
     </form>
-
 </div>
 
 </body>

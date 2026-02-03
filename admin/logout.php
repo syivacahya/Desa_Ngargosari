@@ -1,28 +1,21 @@
 <?php
 session_start();
 
-<<<<<<< HEAD
-// Hapus semua data session
-$_SESSION = [];
-session_unset();
-session_destroy();
-
-// Redirect ke halaman login
-header("Location: admin/login.php");
-exit;
-=======
 // Jika tombol logout diklik
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_logout'])) {
-    session_unset(); // hapus semua variabel session
-    session_destroy(); // hancurkan session
+    // Hapus semua session
+    $_SESSION = [];
+    session_unset();
+    session_destroy();
 
-    header("Location: Login.php");
+    // Redirect ke halaman login
+    header("Location: login.php"); // sesuaikan path login
     exit();
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -32,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_logout'])) {
 
 <body class="bg-white flex items-center justify-center min-h-screen">
 
-  <form action="Logout.php" method="POST"
+  <form action="" method="POST"
         class="w-72 p-6 border border-gray-300 shadow-md bg-white rounded-md">
 
     <h2 class="font-bold text-black text-lg mb-3">
@@ -68,4 +61,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_logout'])) {
 
 </body>
 </html>
->>>>>>> 866081e9b201ded733559b8c119d9a7e7f40a8d4
