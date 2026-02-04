@@ -1,21 +1,35 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['login'])){
+if (!isset($_SESSION['login'])) {
     header("Location: login.php");
     exit;
 }
 
 require_once "../koneksi.php";
 
-// total produk unggulan
+/* =======================
+   PRODUK UNGGULAN
+======================= */
 $qProduk = mysqli_query($koneksi, "SELECT COUNT(*) AS total FROM produk");
 $dProduk = mysqli_fetch_assoc($qProduk);
 $totalProduk = $dProduk['total'] ?? 0;
 
-// data statis sementara
-$totalPenduduk = 700;
-$totalKK = 180;
+/* =======================
+   DATA PENDUDUK (sinkron infografis)
+   ambil data TERBARU
+======================= */
+$qPenduduk = mysqli_query($koneksi, "
+    SELECT total, kk 
+    FROM infografis_penduduk 
+    ORDER BY tahun DESC 
+    LIMIT 1
+");
+
+$dPenduduk = mysqli_fetch_assoc($qPenduduk);
+
+$total = $dPenduduk['total'] ?? 0;
+$kk    = $dPenduduk['kk'] ?? 0;
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -65,24 +79,33 @@ body { font-family: 'Poppins', sans-serif; }
 
 <!-- STATISTIK -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+
     <div class="bg-white p-6 rounded-xl shadow hover:-translate-y-1 transition">
         <p class="text-gray-500 text-sm">Total Penduduk</p>
-        <h3 class="text-3xl font-semibold text-green-700 mt-2"><?= $totalPenduduk ?></h3>
+        <h3 class="text-3xl font-semibold text-green-700 mt-2">
+            <?= number_format($total) ?>
+        </h3>
     </div>
 
     <div class="bg-white p-6 rounded-xl shadow hover:-translate-y-1 transition">
         <p class="text-gray-500 text-sm">Kepala Keluarga</p>
-        <h3 class="text-3xl font-semibold text-green-700 mt-2"><?= $totalKK ?></h3>
+        <h3 class="text-3xl font-semibold text-green-700 mt-2">
+            <?= number_format($kk) ?>
+        </h3>
     </div>
 
     <div class="bg-white p-6 rounded-xl shadow hover:-translate-y-1 transition">
         <p class="text-gray-500 text-sm">Produk Unggulan</p>
-        <h3 class="text-3xl font-semibold text-green-700 mt-2"><?= $totalProduk ?></h3>
+        <h3 class="text-3xl font-semibold text-green-700 mt-2">
+            <?= $totalProduk ?>
+        </h3>
     </div>
+
 </div>
 
 <!-- MENU -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+
     <div onclick="location.href='profil.php'"
          class="cursor-pointer bg-white p-8 rounded-xl shadow text-center text-lg font-medium hover:bg-green-700 hover:text-white transition">
         📌 Profil Desa
@@ -97,14 +120,17 @@ body { font-family: 'Poppins', sans-serif; }
          class="cursor-pointer bg-white p-8 rounded-xl shadow text-center text-lg font-medium hover:bg-green-700 hover:text-white transition">
         🛒 Produk Unggulan
     </div>
+
     <div onclick="location.href='berita.php'"
          class="cursor-pointer bg-white p-8 rounded-xl shadow text-center text-lg font-medium hover:bg-green-700 hover:text-white transition">
-       📰 Berita
+        📰 Berita
     </div>
+
     <div onclick="location.href='galeri.php'"
          class="cursor-pointer bg-white p-8 rounded-xl shadow text-center text-lg font-medium hover:bg-green-700 hover:text-white transition">
-       🖼️ Galeri
+        🖼️ Galeri
     </div>
+
 </div>
 
 <!-- MAP -->

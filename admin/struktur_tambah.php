@@ -78,26 +78,32 @@ tailwind.config = {
 
 <div class="flex min-h-screen">
 
-<!-- ================= SIDEBAR ================= -->
-<aside class="fixed top-0 left-0 w-60 h-screen bg-gradient-to-b from-green-900 to-green-700 text-white">
-    <div class="flex flex-col items-center py-6 border-b border-white/20">
-        <img src="../assets/img/logo.png" class="w-20 mb-3">
-        <span class="text-sm font-semibold tracking-wider">ADMIN DESA</span>
-    </div>
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="fixed top-0 left-0 w-60 h-screen bg-gradient-to-b from-green-900 to-green-700 text-white z-50">
+        <div class="flex flex-col items-center py-6 border-b border-white/20">
+            <img src="../assets/img/logo.png" class="w-20 mb-3">
+            <span class="text-sm tracking-wider font-semibold">ADMIN DESA</span>
+        </div>
 
-    <nav class="mt-4 text-sm">
-        <a href="dashboard.php" class="block px-6 py-3 hover:bg-white/20">🏠 Dashboard</a>
-        <a href="profil.php" class="block px-6 py-3 bg-white/20">📌 Profil Desa</a>
-        <a href="logout.php" class="block px-6 py-3 text-red-200 hover:bg-red-500/30">🚪 Logout</a>
-    </nav>
-</aside>
+        <nav class="mt-4 text-sm">
+            <a href="dashboard.php" class="block px-6 py-3 hover:bg-white/20">🏠 Dashboard</a>
+            <a href="profil.php" class="block px-6 py-3 hover:bg-white/20">📌 Profil Desa</a>
+            <a href="infografis.php" class="block px-6 py-3 hover:bg-white/20">📊 Infografis</a>
+            <a href="produk.php" class="block px-6 py-3 hover:bg-white/20">🛒 Produk Unggulan</a>
+            <a href="berita.php" class="block px-6 py-3 hover:bg-white/20">📰 Berita</a>
+            <a href="galeri.php" class="block px-6 py-3 hover:bg-white/20">🖼️ Galeri</a>
+            <a href="logout.php" class="block px-6 py-3 text-red-200 hover:bg-red-500/30">🚪 Logout</a>
+        </nav>
+    </aside>
 
-<!-- ================= CONTENT ================= -->
-<div class="flex-1 ml-60">
+    <!-- ================= CONTENT ================= -->
+    <div class="flex-1 ml-60">
 
-<header class="bg-green-800 text-white px-10 py-6 sticky top-0">
-    <h1 class="text-2xl font-semibold">Tambah Struktur Pemerintahan</h1>
-</header>
+        <!-- HEADER -->
+        <header class="bg-white px-8 py-5 shadow">
+            <h2 class="text-xl font-semibold text-gray-800">Dashboard Admin Desa Ngargosari</h2>
+            <p class="text-gray-500 text-sm">Profil Desa</p>
+        </header>
 
 <main class="p-10 max-w-3xl">
 
