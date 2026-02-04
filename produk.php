@@ -1,13 +1,9 @@
 <?php
-<<<<<<< HEAD
-=======
-
->>>>>>> 866081e9b201ded733559b8c119d9a7e7f40a8d4
 include "koneksi.php";
 
 /* PAGINATION */
 $batas = 4;
-$hal = isset($_GET['hal']) ? (int)$_GET['hal'] : 1;
+$hal   = isset($_GET['hal']) ? (int)$_GET['hal'] : 1;
 $mulai = ($hal - 1) * $batas;
 
 $total = mysqli_num_rows(mysqli_query($koneksi,"SELECT id_produk FROM produk"));
@@ -19,166 +15,113 @@ $data = mysqli_query($koneksi,"
     LIMIT $mulai, $batas
 ");
 ?>
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 866081e9b201ded733559b8c119d9a7e7f40a8d4
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <title>Produk Unggulan Desa</title>
-<<<<<<< HEAD
-=======
 
->>>>>>> 866081e9b201ded733559b8c119d9a7e7f40a8d4
+<script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Poppins;background:#fff}
-
-/* HEADER */
-header{
-    background:#355e2b;color:white;
-    padding:15px 40px;
-    display:flex;justify-content:space-between;align-items:center
-}
-.logo{display:flex;gap:12px;align-items:center}
-.logo img{width:45px}
-nav a{
-    color:white;text-decoration:none;margin:0 12px;font-size:14px
-}
-nav a.active{border-bottom:2px solid #fff;padding-bottom:4px}
-
-/* CONTENT */
-.container{max-width:1100px;margin:50px auto;padding:0 20px}
-h1{font-weight:500;margin-bottom:40px}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-    justify-items:center;
-}
-
-/* CARD */
-.card{
-    width:300px;
-    border:1px solid #ddd;
-    padding:15px;
-    transition:.3s;
-    cursor:pointer;
-}
-.card:hover{
-    transform:translateY(-8px);
-    box-shadow:0 10px 25px rgba(0,0,0,.15);
-}
-.card img{
-    width:100%;height:200px;object-fit:cover
-}
-.card p{
-    margin:10px 0 0;
-    font-weight:500;
-}
-
-/* PAGINATION */
-.pagination{text-align:center;margin:40px 0}
-.pagination a{
-    display:inline-block;
-    padding:4px 8px;
-    margin:0 4px;
-    border:1px solid #ccc;
-    text-decoration:none;
-    color:#333;
-}
-.pagination a.active{
-    background:#e0e7f5;
-    font-weight:600;
-}
-
-/* FOOTER */
-footer{
-    background:#355e2b;color:white;
-    padding:40px;
-    display:grid;
-    grid-template-columns:2fr 1fr;
-    gap:30px;
-    font-size:13px;
-}
-footer img{width:55px;margin-bottom:10px}
-.credit{
-    background:#2b4a22;
-    text-align:center;
-    padding:8px;
-    font-size:12px;
-}
-
-/* RESPONSIVE */
-@media(max-width:768px){
-    header{flex-direction:column;gap:10px}
-    nav{margin-top:10px}
-    .grid{grid-template-columns:1fr}
-    footer{grid-template-columns:1fr;text-align:center}
-}
+    body { font-family: 'Poppins', sans-serif; }
 </style>
 </head>
-<body>
 
-<header>
-    <div class="logo">
-        <img src="assets/img/logo.png">
-        <div>
-            <strong>Desa Ngargosari</strong><br>
-            <small>Kecamatan Loano, Kabupaten Purworejo</small>
+<body class="bg-white text-gray-800">
+
+<!-- ===== HEADER ===== -->
+<header class="bg-green-800 text-white">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+
+        <div class="flex items-center gap-3">
+            <img src="assets/img/logo.png" class="w-12">
+            <div class="leading-tight">
+                <p class="font-semibold">Desa Ngargosari</p>
+                <p class="text-xs opacity-90">Kecamatan Loano, Kabupaten Purworejo</p>
+            </div>
         </div>
+
+        <nav class="flex gap-5 text-sm">
+            <a href="index.php" class="hover:underline">Home</a>
+            <a href="profil-desa.php" class="hover:underline">Profil Desa</a>
+            <a href="produk.php" class="border-b-2 border-white pb-1 font-medium">Produk Unggulan</a>
+            <a href="infografis.php" class="hover:underline">Infografis</a>
+        </nav>
+
     </div>
-    <nav>
-        <a href="index.php">Home</a>
-        <a href="profil-desa.php">Profil Desa</a>
-        <a href="produk.php" class="active">Produk Unggulan Desa</a>
-        <a href="infografis.php">Infografis</a>
-    </nav>
 </header>
 
-<div class="container">
-    <h1>Produk Unggulan Desa</h1>
+<!-- ===== CONTENT ===== -->
+<main class="max-w-7xl mx-auto px-6 py-12">
 
-    <div class="grid">
-    <?php while($p=mysqli_fetch_assoc($data)){ ?>
-        <a href="produk_detail.php?id=<?= $p['id_produk'] ?>" style="color:inherit;text-decoration:none">
-            <div class="card">
-                <img src="assets/img/produk/<?= $p['gambar'] ?>">
-                <p><?= htmlspecialchars($p['nama_produk']) ?></p>
+    <h1 class="text-2xl font-semibold mb-10 text-center">
+        Produk Unggulan Desa
+    </h1>
+
+    <!-- GRID PRODUK -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center">
+
+        <?php while($p = mysqli_fetch_assoc($data)): ?>
+        <a href="produk_detail.php?id=<?= $p['id_produk'] ?>"
+           class="group w-full max-w-xs bg-white border rounded-lg overflow-hidden
+                  hover:-translate-y-2 hover:shadow-xl transition">
+
+            <img src="assets/img/produk/<?= htmlspecialchars($p['gambar']) ?>"
+                 class="w-full h-48 object-cover">
+
+            <div class="p-4">
+                <p class="font-medium text-center group-hover:text-green-700 transition">
+                    <?= htmlspecialchars($p['nama_produk']) ?>
+                </p>
             </div>
         </a>
-    <?php } ?>
+        <?php endwhile; ?>
+
     </div>
 
-    <div class="pagination">
-        <?php for($i=1;$i<=$pages;$i++){ ?>
-            <a class="<?= $i==$hal?'active':'' ?>" href="?hal=<?= $i ?>"><?= $i ?></a>
-        <?php } ?>
+    <!-- PAGINATION -->
+    <div class="flex justify-center mt-12 gap-2">
+        <?php for($i=1;$i<=$pages;$i++): ?>
+            <a href="?hal=<?= $i ?>"
+               class="px-3 py-1 border rounded text-sm
+               <?= $i==$hal
+                    ? 'bg-green-700 text-white border-green-700'
+                    : 'hover:bg-gray-100' ?>">
+                <?= $i ?>
+            </a>
+        <?php endfor; ?>
     </div>
-</div>
 
-<footer>
-    <div>
-        <img src="assets/img/logo.png"><br>
-        <strong>Pemerintah Desa Ngargosari</strong><br><br>
-        Desa Ngargosari Kecamatan Loano, Kabupaten Purworejo<br>
-        Provinsi Jawa Tengah
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="bg-green-800 text-white mt-16">
+    <div class="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-8 text-sm">
+
+        <div>
+            <img src="assets/img/logo.png" class="w-14 mb-3">
+            <p class="font-semibold">Pemerintah Desa Ngargosari</p>
+            <p class="opacity-90 mt-2">
+                Kecamatan Loano, Kabupaten Purworejo<br>
+                Provinsi Jawa Tengah
+            </p>
+        </div>
+
+        <div>
+            <p class="font-semibold mb-2">Hubungi Kami</p>
+            <p>📞 08888888</p>
+            <p>✉️ email</p>
+            <p>📷 instagram</p>
+        </div>
+
     </div>
-    <div>
-        <strong>Hubungi Kami</strong><br><br>
-        📞 08888888<br>
-        ✉️ email<br>
-        📷 instagram
+
+    <div class="bg-green-900 text-center text-xs py-2">
+        © 2026 Desa Ngargosari
     </div>
 </footer>
-
-<div class="credit">credit 2026</div>
 
 </body>
 </html>

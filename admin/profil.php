@@ -1,294 +1,253 @@
 <?php
 session_start();
 if(!isset($_SESSION['login'])){
-    header("Location: admin/login.php");
+    header("Location: login.php");
     exit;
 }
-<<<<<<< HEAD
-=======
+require_once "../koneksi.php";
 
-// PROSES UPLOAD STRUKTUR
-if(isset($_POST['upload_struktur'])){
-    $jabatan = $_POST['jabatan'];
-    $nama    = $_POST['nama_pejabat'];
+$qProfil   = mysqli_query($koneksi, "SELECT * FROM profil_desa LIMIT 1");
+$profil    = mysqli_fetch_assoc($qProfil);
+$qbatas   = mysqli_query($koneksi, "SELECT * FROM batas_wilayah LIMIT 1");
+$batas    = mysqli_fetch_assoc($qbatas);
 
-    $folder = "../assets/img/struktur/";
-    if(!is_dir($folder)){
-        mkdir($folder, 0777, true);
-    }
-
-    $foto = $_FILES['foto']['name'];
-    $tmp  = $_FILES['foto']['tmp_name'];
-    $ext  = strtolower(pathinfo($foto, PATHINFO_EXTENSION));
-
-    $allowed = ['jpg','jpeg','png','webp'];
-    if(!in_array($ext, $allowed)){
-        die("Format file tidak didukung!");
-    }
-
-    $namaFile = time().".".$ext;
-    move_uploaded_file($tmp, $folder.$namaFile);
-
-    $success = "Struktur pemerintahan berhasil diupload";
-}
->>>>>>> 866081e9b201ded733559b8c119d9a7e7f40a8d4
+$qStruktur = mysqli_query($koneksi, "SELECT * FROM struktur_pemerintahan ORDER BY id ASC");
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<<<<<<< HEAD
-  <meta charset="UTF-8">
-  <title>Admin Desa | Profil Desa</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-=======
 <meta charset="UTF-8">
 <title>Profil Desa</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-<style>
-body{font-family:'Poppins',sans-serif}
-</style>
->>>>>>> 866081e9b201ded733559b8c119d9a7e7f40a8d4
+<script>
+tailwind.config = {
+    theme: {
+        extend: {
+            fontFamily: {
+                poppins: ['Poppins', 'sans-serif']
+            }
+        }
+    }
+}
+</script>
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-gray-100 font-poppins">
 
-<<<<<<< HEAD
 <div class="flex min-h-screen">
 
-<!-- ===== SIDEBAR ===== -->
-<aside class="w-60 min-h-screen bg-gradient-to-b from-green-900 to-green-700 text-white flex-shrink-0 relative z-20">
+<!-- ================= SIDEBAR ================= -->
+<aside class="fixed top-0 left-0 w-60 h-screen bg-gradient-to-b from-green-900 to-green-700 text-white z-50">
     <div class="flex flex-col items-center py-6 border-b border-white/20">
         <img src="../assets/img/logo.png" class="w-20 mb-3">
-        <span class="tracking-wider font-semibold text-sm">ADMIN DESA</span>
-=======
-<div class="flex">
-
-<!-- ================= SIDEBAR ================= -->
-<aside class="w-64 min-h-screen bg-gradient-to-b from-green-900 to-green-700 text-white fixed">
-    <div class="flex flex-col items-center p-6 border-b border-white/30">
-        <img src="../assets/img/logo.png" class="w-20 mb-2">
-        <span class="text-sm font-semibold tracking-wide">ADMIN DESA</span>
->>>>>>> 866081e9b201ded733559b8c119d9a7e7f40a8d4
+        <span class="text-sm tracking-wider font-semibold">ADMIN DESA</span>
     </div>
 
-    <nav class="mt-4">
+    <nav class="mt-4 text-sm">
         <a href="dashboard.php" class="block px-6 py-3 hover:bg-white/20">🏠 Dashboard</a>
-        <a href="profil.php" class="block px-6 py-3 bg-white/20">📌 Profil Desa</a>
+        <a href="profil.php" class="block px-6 py-3 hover:bg-white/20">📌 Profil Desa</a>
         <a href="infografis.php" class="block px-6 py-3 hover:bg-white/20">📊 Infografis</a>
         <a href="produk.php" class="block px-6 py-3 hover:bg-white/20">🛒 Produk Unggulan</a>
-<<<<<<< HEAD
+        <a href="berita.php" class="block px-6 py-3 hover:bg-white/20">📰 Berita</a>
+        <a href="galeri.php" class="block px-6 py-3 hover:bg-white/20">🖼️ Galeri</a>
         <a href="logout.php" class="block px-6 py-3 text-red-200 hover:bg-red-500/30">🚪 Logout</a>
     </nav>
 </aside>
 
-<!-- ===== MAIN CONTENT ===== -->
-<main class="flex-1 flex flex-col relative z-10">
+<!-- ================= CONTENT ================= -->
+<div class="flex-1 ml-60">
 
 <!-- HEADER -->
-<header class="bg-white px-8 py-5 border-b">
-    <h2 class="text-xl font-semibold text-gray-800">Profil Desa</h2>
-    <p class="text-gray-500 text-sm">Ringkasan Data Desa</p>
+<header class="bg-white px-8 py-5 shadow">
+    <h2 class="text-xl font-semibold text-gray-800">Dashboard Admin Desa Ngargosari</h2>
+    <p class="text-gray-500 text-sm">Profil Desa </p>
 </header>
 
-<!-- CONTENT -->
-<section class="p-8 flex flex-col gap-8 relative z-10">
-
-<!-- TOMBOL TAMBAH -->
-<div>
-    <a href="profil_tambah.php"
-       class="inline-block bg-green-700 text-white px-5 py-2 rounded hover:bg-green-800">
-        + Tambah
-    </a>
-</div>
-
-<!-- PROFIL DESA -->
-<div class="bg-white rounded-lg shadow overflow-hidden">
-<table class="w-full text-sm">
-<thead class="bg-green-100 text-green-800">
-<tr>
-    <th class="p-4">Sejarah Desa</th>
-    <th>Luas Wilayah</th>
-    <th>Jumlah RT</th>
-    <th>Jumlah Dusun</th>
-    <th>Nama Dusun</th>
-    <th class="text-center w-32">Aksi</th>
-</tr>
-</thead>
-<tbody>
-<tr class="border-t">
-    <td class="p-4">-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="p-4">
-        <div class="flex justify-center gap-2">
-            <a href="profil_edit.php?id=1"
-               class="bg-yellow-400 px-3 py-1 rounded text-sm hover:bg-yellow-500">
-                Edit
-            </a>
-            <a href="profil_hapus.php?id=1"
-               onclick="return confirm('Yakin ingin menghapus data ini?')"
-               class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">
-                Hapus
-            </a>
-        </div>
-    </td>
-</tr>
-</tbody>
-</table>
-</div>
-
-<!-- BATAS WILAYAH -->
-<div class="bg-white rounded-lg shadow overflow-hidden">
-<table class="w-full text-sm">
-<thead class="bg-green-100 text-green-800">
-<tr>
-    <th class="p-4">Utara</th>
-    <th>Timur</th>
-    <th>Selatan</th>
-    <th class="text-center w-32">Aksi</th>
-</tr>
-</thead>
-<tbody>
-<tr class="border-t">
-    <td class="p-4">-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="p-4">
-        <div class="flex justify-center gap-2">
-            <a href="batas_edit.php?id=1"
-               class="bg-yellow-400 px-3 py-1 rounded text-sm">
-                Edit
-            </a>
-            <a href="batas_hapus.php?id=1"
-               onclick="return confirm('Yakin ingin menghapus data ini?')"
-               class="bg-red-500 text-white px-3 py-1 rounded text-sm">
-                Hapus
-            </a>
-        </div>
-    </td>
-</tr>
-</tbody>
-</table>
-</div>
-
-<!-- STRUKTUR PEMERINTAHAN -->
-<div class="bg-white rounded-lg shadow overflow-hidden">
-<table class="w-full text-sm text-center">
-<thead class="bg-green-100 text-green-800">
-<tr>
-    <th class="p-4">Nama</th>
-    <th>Jabatan</th>
-    <th>Gambar</th>
-    <th class="w-32">Aksi</th>
-</tr>
-</thead>
-<tbody>
-<tr class="border-t">
-    <td class="p-4">-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="p-4">
-        <div class="flex justify-center gap-2">
-            <a href="struktur_edit.php?id=1"
-               class="bg-yellow-400 px-3 py-1 rounded text-sm">
-                Edit
-            </a>
-            <a href="struktur_hapus.php?id=1"
-               onclick="return confirm('Yakin ingin menghapus data ini?')"
-               class="bg-red-500 text-white px-3 py-1 rounded text-sm">
-                Hapus
-            </a>
-        </div>
-    </td>
-</tr>
-</tbody>
-</table>
-</div>
-
-=======
-        <a href="logout.php" class="block px-6 py-3 text-red-200 hover:bg-white/20">🚪 Logout</a>
-    </nav>
-</aside>
-
-<!-- ================= MAIN ================= -->
-<main class="ml-64 w-full">
-
-<!-- HEADER -->
-<header class="bg-white shadow px-8 py-5">
-    <h2 class="text-xl font-semibold text-gray-800">Profil Desa</h2>
-    <p class="text-sm text-gray-500">Kelola informasi & struktur pemerintahan desa</p>
-</header>
-
-<section class="p-8">
-
-<div class="bg-white rounded-xl shadow p-6 max-w-4xl">
-
-<?php if(isset($success)): ?>
-    <div class="mb-4 p-3 rounded-lg bg-green-100 text-green-800">
-        <?= $success ?>
-    </div>
-<?php endif; ?>
+<main class="p-8 space-y-10">
 
 <!-- ================= PROFIL DESA ================= -->
-<div class="space-y-4">
-    <div>
-        <label class="font-medium text-green-800">Sejarah Singkat</label>
-        <textarea rows="4" class="w-full mt-1 p-3 border rounded-lg"></textarea>
+<section class="bg-white rounded shadow">
+    <div class="flex justify-between items-center px-6 py-4 border-b">
+        <h2 class="font-semibold text-lg">Profil Desa</h2>
+        <?php if(!$profil): ?>
+        <a href="profil_tambah.php"
+           class="bg-green-700 text-white px-4 py-2 rounded text-sm hover:bg-green-800">
+           + Tambah Profil
+        </a>
+        <?php endif; ?>
     </div>
 
-    <div>
-        <label class="font-medium text-green-800">Visi & Misi</label>
-        <textarea rows="4" class="w-full mt-1 p-3 border rounded-lg"></textarea>
+    <div class="overflow-x-auto">
+        <table class="min-w-[1200px] w-full text-sm">
+            <thead class="bg-green-200">
+                <tr>
+                    <th class="p-3">Visi</th>
+                    <th class="p-3">Misi</th>
+                    <th class="p-3">Sejarah</th>
+                    <th class="p-3">Luas</th>
+                    <th class="p-3">RT</th>
+                    <th class="p-3">Dusun</th>
+                    <th class="p-3">Nama Dusun</th>
+                    <th class="p-3 text-center">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php if($profil): ?>
+                <tr class="border-t align-top">
+                    <td class="p-3"><?= $profil['visi'] ?></td>
+                    <td class="p-3"><?= $profil['misi'] ?></td>
+                    <td class="p-3"><?= $profil['sejarah'] ?></td>
+                    <td class="p-3"><?= $profil['luas_wilayah'] ?></td>
+                    <td class="p-3"><?= $profil['jumlah_rt'] ?></td>
+                    <td class="p-3"><?= $profil['jumlah_dusun'] ?></td>
+                    <td class="p-3"><?= $profil['nama_dusun'] ?></td>
+                    <td class="p-3 text-center">
+                        <a href="profil_edit.php?id=<?= $profil['id'] ?>"
+                           class="bg-yellow-400 px-3 py-1 rounded text-sm">
+                           Edit
+                        </a>
+                        <a href="profil_hapus.php?id=<?= $profil['id'] ?>"
+                               class="bg-red-500 text-white px-3 py-1 rounded text-sm"
+                               onclick="return confirm('Yakin hapus data?')">
+                               Hapus
+                            </a>
+                    </td>
+                </tr>
+            <?php else: ?>
+                <tr>
+                    <td colspan="8" class="p-4 text-center text-gray-500 italic">
+                        Data profil desa belum tersedia
+                    </td>
+                </tr>
+            <?php endif; ?>
+            </tbody>
+        </table>
     </div>
-</div>
+</section>
 
-<hr class="my-8">
-
-<!-- ================= STRUKTUR ================= -->
-<h3 class="text-lg font-semibold text-green-800 mb-4">
-    Struktur Pemerintahan Desa
-</h3>
-
-<form method="post" enctype="multipart/form-data" class="space-y-4">
-
-    <div>
-        <label class="font-medium text-green-800">Jabatan</label>
-        <input type="text" name="jabatan" required
-               class="w-full mt-1 p-3 border rounded-lg"
-               placeholder="Contoh: Kepala Desa">
+<!-- ================= BATAS WILAYAH ================= -->
+<section class="bg-white rounded shadow">
+    <div class="flex justify-between items-center px-6 py-4 border-b">
+        <h2 class="font-semibold text-lg">Batas Wilayah</h2>
+        <?php if(!$batas): ?>
+        <a href="batas_tambah.php"
+           class="bg-green-700 text-white px-4 py-2 rounded text-sm hover:bg-green-800">
+           + Tambah Batas
+        </a>
+        <?php endif; ?>
     </div>
 
-    <div>
-        <label class="font-medium text-green-800">Nama Pejabat</label>
-        <input type="text" name="nama_pejabat" required
-               class="w-full mt-1 p-3 border rounded-lg">
+    <div class="overflow-x-auto">
+        <table class="min-w-[800px] w-full text-sm">
+            <thead class="bg-green-200">
+                <tr>
+                    <th class="p-3">Utara</th>
+                    <th class="p-3">Timur</th>
+                    <th class="p-3">Selatan</th>
+                    <th class="p-3">Barat</th>
+                    <th class="p-3 text-center">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php if($batas): ?>
+                <tr class="border-t">
+                    <td class="p-3"><?= $batas['utara'] ?></td>
+                    <td class="p-3"><?= $batas['timur'] ?></td>
+                    <td class="p-3"><?= $batas['selatan'] ?></td>
+                     <td class="p-3"><?= $batas['barat'] ?></td>
+                    <td class="p-3 text-center">
+                        <a href="batas_edit.php?id=<?= $batas['id'] ?>"
+                           class="bg-yellow-400 px-3 py-1 rounded text-sm">
+                           Edit
+                        </a>
+                        <a href="batas_hapus.php?id=<?= $batas['id'] ?>"
+                               class="bg-red-500 text-white px-3 py-1 rounded text-sm"
+                               onclick="return confirm('Yakin hapus data?')">
+                               Hapus
+                            </a>
+                    </td>
+                </tr>
+            <?php else: ?>
+                <tr>
+                    <td colspan="5" class="p-4 text-center text-gray-500 italic">
+                        Data batas wilayah belum tersedia
+                    </td>
+                </tr>
+            <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- ================= STRUKTUR PEMERINTAHAN ================= -->
+<section class="bg-white rounded shadow">
+    <div class="flex justify-between items-center px-6 py-4 border-b">
+        <h2 class="font-semibold text-lg">Struktur Pemerintahan</h2>
+        <a href="struktur_tambah.php"
+           class="bg-green-700 text-white px-4 py-2 rounded text-sm hover:bg-green-800">
+           + Tambah Struktur
+        </a>
     </div>
 
-    <div>
-        <label class="font-medium text-green-800">Foto</label>
-        <input type="file" name="foto" accept="image/*" required
-               class="w-full mt-1 p-2 border rounded-lg bg-white">
+    <div class="overflow-x-auto">
+        <table class="min-w-[900px] w-full text-sm">
+            <thead class="bg-green-200">
+                <tr>
+                    <th class="p-3 w-16 text-center">No</th>
+                    <th class="p-3">Nama</th>
+                    <th class="p-3">Jabatan</th>
+                    <th class="p-3 text-center">Gambar</th>
+                    <th class="p-3 w-32 text-center">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php if(mysqli_num_rows($qStruktur) > 0): ?>
+                <?php $no = 1; while($s = mysqli_fetch_assoc($qStruktur)): ?>
+                <tr class="border-t">
+                    <td class="p-3 text-center"><?= $no++ ?></td>
+                    <td class="p-3"><?= $s['nama'] ?></td>
+                    <td class="p-3"><?= $s['jabatan'] ?></td>
+                    <td class="p-3 text-center">
+                        <?php if($s['gambar']): ?>
+                            <img src="../uploads/<?= $s['gambar'] ?>"
+                                 class="w-16 h-16 object-cover rounded mx-auto">
+                        <?php else: ?>
+                            <span class="text-gray-400 italic">Tidak ada</span>
+                        <?php endif; ?>
+                    </td>
+                    <td class="p-3">
+                        <div class="flex justify-center gap-2">
+                            <a href="struktur_edit.php?id=<?= $s['id'] ?>"
+                               class="bg-yellow-400 px-3 py-1 rounded text-sm">
+                               Edit
+                            </a>
+                            <a href="struktur_hapus.php?id=<?= $s['id'] ?>"
+                               class="bg-red-500 text-white px-3 py-1 rounded text-sm"
+                               onclick="return confirm('Yakin hapus data?')">
+                               Hapus
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="5" class="p-4 text-center text-gray-500 italic">
+                        Belum ada data struktur pemerintahan
+                    </td>
+                </tr>
+            <?php endif; ?>
+            </tbody>
+        </table>
     </div>
-
-    <div class="text-right">
-        <button type="submit" name="upload_struktur"
-                class="bg-green-700 hover:bg-green-800 text-white px-6 py-2 rounded-lg">
-            📤 Upload Struktur
-        </button>
-    </div>
-
-</form>
-
-</div>
->>>>>>> 866081e9b201ded733559b8c119d9a7e7f40a8d4
 </section>
 
 </main>
+</div>
 </div>
 
 </body>

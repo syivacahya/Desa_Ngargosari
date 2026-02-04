@@ -40,12 +40,14 @@ body { font-family: 'Poppins', sans-serif; }
         <span class="tracking-wider font-semibold text-sm">ADMIN DESA</span>
     </div>
 
-    <nav class="mt-4">
-        <a href="dashboard.php" class="block px-6 py-3 hover:bg-white/20 transition">🏠 Dashboard</a>
-        <a href="profil.php" class="block px-6 py-3 hover:bg-white/20 transition">📌 Profil Desa</a>
-        <a href="infografis.php" class="block px-6 py-3 hover:bg-white/20 transition">📊 Infografis</a>
-        <a href="produk.php" class="block px-6 py-3 hover:bg-white/20 transition">🛒 Produk Unggulan</a>
-        <a href="logout.php" class="block px-6 py-3 text-red-200 hover:bg-red-500/30 transition">🚪 Logout</a>
+    <nav class="mt-4 text-sm">
+        <a href="dashboard.php" class="block px-6 py-3 hover:bg-white/20">🏠 Dashboard</a>
+        <a href="profil.php" class="block px-6 py-3 hover:bg-white/20">📌 Profil Desa</a>
+        <a href="infografis.php" class="block px-6 py-3 hover:bg-white/20">📊 Infografis</a>
+        <a href="produk.php" class="block px-6 py-3 hover:bg-white/20">🛒 Produk Unggulan</a>
+        <a href="berita.php" class="block px-6 py-3 hover:bg-white/20">📰 Berita</a>
+        <a href="galeri.php" class="block px-6 py-3 hover:bg-white/20">🖼️ Galeri</a>
+        <a href="logout.php" class="block px-6 py-3 text-red-200 hover:bg-red-500/30">🚪 Logout</a>
     </nav>
 </aside>
 
@@ -94,6 +96,14 @@ body { font-family: 'Poppins', sans-serif; }
     <div onclick="location.href='produk.php'"
          class="cursor-pointer bg-white p-8 rounded-xl shadow text-center text-lg font-medium hover:bg-green-700 hover:text-white transition">
         🛒 Produk Unggulan
+    </div>
+    <div onclick="location.href='berita.php'"
+         class="cursor-pointer bg-white p-8 rounded-xl shadow text-center text-lg font-medium hover:bg-green-700 hover:text-white transition">
+       📰 Berita
+    </div>
+    <div onclick="location.href='galeri.php'"
+         class="cursor-pointer bg-white p-8 rounded-xl shadow text-center text-lg font-medium hover:bg-green-700 hover:text-white transition">
+       🖼️ Galeri
     </div>
 </div>
 

@@ -1,95 +1,73 @@
 <?php
 session_start();
-include "../koneksi.php";
-
-if(!isset($_SESSION['login'])){
+if (!isset($_SESSION['login'])) {
     header("Location: login.php");
     exit;
 }
 
-/* VALIDASI ID */
-if(!isset($_GET['id'])){
-    header("Location: profil.php");
-    exit;
-}
+require_once "../koneksi.php";
 
-$id = $_GET['id'];
+if (isset($_POST['simpan'])) {
 
-/* AMBIL DATA */
-$query = mysqli_query($koneksi, "SELECT * FROM profil_desa WHERE id='$id'");
-$data = mysqli_fetch_assoc($query);
+    $visi          = mysqli_real_escape_string($koneksi, $_POST['visi']);
+    $misi          = mysqli_real_escape_string($koneksi, $_POST['misi']);
+    $sejarah       = mysqli_real_escape_string($koneksi, $_POST['sejarah']);
+    $luas_wilayah  = mysqli_real_escape_string($koneksi, $_POST['luas_wilayah']);
+    $jumlah_rt     = (int) $_POST['jumlah_rt'];
+    $jumlah_dusun  = (int) $_POST['jumlah_dusun'];
+    $nama_dusun    = mysqli_real_escape_string($koneksi, $_POST['nama_dusun']);
 
-if(!$data){
-    header("Location: profil.php");
-    exit;
-}
+    $query = "
+        INSERT INTO profil_desa 
+        (visi, misi, sejarah, luas_wilayah, jumlah_rt, jumlah_dusun, nama_dusun)
+        VALUES
+        ('$visi', '$misi', '$sejarah', '$luas_wilayah', '$jumlah_rt', '$jumlah_dusun', '$nama_dusun')
+    ";
 
-/* PROSES UPDATE */
-if(isset($_POST['update'])){
-    $sejarah     = $_POST['sejarah'];
-    $luas        = $_POST['luas'];
-    $rt          = $_POST['rt'];
-    $dusun       = $_POST['dusun'];
-    $nama_dusun  = $_POST['nama_dusun'];
-
-    mysqli_query($koneksi, "
-        UPDATE profil_desa SET
-            sejarah='$sejarah',
-            luas_wilayah='$luas',
-            jumlah_rt='$rt',
-            jumlah_dusun='$dusun',
-            nama_dusun='$nama_dusun'
-        WHERE id='$id'
-    ");
+    mysqli_query($koneksi, $query);
 
     header("Location: profil.php");
     exit;
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<title>Edit Profil Desa</title>
-<script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <title>Tambah Profil Desa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="bg-gray-100 p-10">
 
-<form method="post" class="bg-white max-w-xl mx-auto p-6 rounded shadow space-y-4">
-<h2 class="text-xl font-semibold">Edit Profil Desa</h2>
+<form method="post" class="bg-white p-6 rounded shadow max-w-2xl mx-auto space-y-4">
+    <h2 class="text-xl font-semibold text-gray-800">Tambah Profil Desa</h2>
 
-<textarea name="sejarah" class="w-full border p-2 rounded" rows="4"><?= htmlspecialchars($data['sejarah']) ?></textarea>
+    <textarea name="visi" placeholder="Visi Desa" class="w-full border p-2 rounded" required></textarea>
 
-<input type="text" name="luas"
- value="<?= htmlspecialchars($data['luas_wilayah']) ?>"
- class="w-full border p-2 rounded">
+    <textarea name="misi" placeholder="Misi Desa" class="w-full border p-2 rounded" required></textarea>
 
-<input type="number" name="rt"
- value="<?= htmlspecialchars($data['jumlah_rt']) ?>"
- class="w-full border p-2 rounded">
+    <textarea name="sejarah" placeholder="Sejarah Desa" class="w-full border p-2 rounded" rows="4" required></textarea>
 
-<input type="number" name="dusun"
- value="<?= htmlspecialchars($data['jumlah_dusun']) ?>"
- class="w-full border p-2 rounded">
+    <input type="text" name="luas_wilayah" placeholder="Luas Wilayah" class="w-full border p-2 rounded" required>
 
-<input type="text" name="nama_dusun"
- value="<?= htmlspecialchars($data['nama_dusun']) ?>"
- class="w-full border p-2 rounded">
+    <input type="number" name="jumlah_rt" placeholder="Jumlah RT" class="w-full border p-2 rounded" required>
 
-<div class="flex gap-3">
-<button name="update"
- class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
- Update
-</button>
+    <input type="number" name="jumlah_dusun" placeholder="Jumlah Dusun" class="w-full border p-2 rounded" required>
 
-<a href="profil.php"
- class="px-4 py-2 border rounded text-gray-600 hover:bg-gray-100">
- Kembali
-</a>
-</div>
+    <input type="text" name="nama_dusun" placeholder="Nama Dusun (pisahkan dengan koma)" class="w-full border p-2 rounded" required>
 
+    <div class="flex gap-3">
+        <button type="submit" name="simpan"
+            class="bg-green-700 hover:bg-green-800 text-white px-4 py-2 rounded">
+            💾 Simpan
+        </button>
+
+        <a href="profil.php"
+           class="px-4 py-2 rounded border text-gray-600 hover:bg-gray-100">
+           Kembali
+        </a>
+    </div>
 </form>
 
 </body>

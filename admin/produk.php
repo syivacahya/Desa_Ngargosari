@@ -27,14 +27,17 @@ body { font-family: 'Poppins', sans-serif; }
 <aside class="fixed top-0 left-0 w-60 h-screen bg-gradient-to-b from-green-900 to-green-700 text-white">
     <div class="flex flex-col items-center py-6 border-b border-white/20">
         <img src="../assets/img/logo.png" class="w-20 mb-3">
-        <span class="text-sm tracking-wider font-semibold">ADMIN DESA</span>
+        <span class="tracking-wider font-semibold text-sm">ADMIN DESA</span>
     </div>
-    <nav class="mt-4">
-        <a href="dashboard.php" class="block px-6 py-3 hover:bg-white/20 transition">🏠 Dashboard</a>
-        <a href="profil.php" class="block px-6 py-3 hover:bg-white/20 transition">📌 Profil Desa</a>
-        <a href="infografis.php" class="block px-6 py-3 hover:bg-white/20 transition">📊 Infografis</a>
-        <a href="produk.php" class="block px-6 py-3 bg-white/20">🛒 Produk Unggulan</a>
-        <a href="logout.php" class="block px-6 py-3 text-red-200 hover:bg-red-500/30 transition">🚪 Logout</a>
+
+    <nav class="mt-4 text-sm">
+        <a href="dashboard.php" class="block px-6 py-3 hover:bg-white/20">🏠 Dashboard</a>
+        <a href="profil.php" class="block px-6 py-3 hover:bg-white/20">📌 Profil Desa</a>
+        <a href="infografis.php" class="block px-6 py-3 hover:bg-white/20">📊 Infografis</a>
+        <a href="produk.php" class="block px-6 py-3 hover:bg-white/20">🛒 Produk Unggulan</a>
+        <a href="berita.php" class="block px-6 py-3 hover:bg-white/20">📰 Berita</a>
+        <a href="galeri.php" class="block px-6 py-3 hover:bg-white/20">🖼️ Galeri</a>
+        <a href="logout.php" class="block px-6 py-3 text-red-200 hover:bg-red-500/30">🚪 Logout</a>
     </nav>
 </aside>
 
@@ -42,9 +45,10 @@ body { font-family: 'Poppins', sans-serif; }
 <div class="ml-60 min-h-screen">
 
 <!-- HEADER -->
+<!-- HEADER -->
 <header class="bg-white px-8 py-5 shadow">
-    <h2 class="text-xl font-semibold text-gray-800">Produk Unggulan Desa</h2>
-    <p class="text-gray-500 text-sm">Kelola produk UMKM desa</p>
+    <h2 class="text-xl font-semibold text-gray-800">Dashboard Admin Desa Ngargosari</h2>
+    <p class="text-gray-500 text-sm">Produk Unggulan Desa </p>
 </header>
 
 <!-- CONTENT -->

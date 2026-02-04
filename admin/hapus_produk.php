@@ -1,10 +1,8 @@
 <?php
 session_start();
-<<<<<<< HEAD
-include "koneksi.php";
-=======
+
 require_once '../koneksi.php';
->>>>>>> 866081e9b201ded733559b8c119d9a7e7f40a8d4
+
 
 if(!isset($_SESSION['login'])){
     header("Location: login.php");
