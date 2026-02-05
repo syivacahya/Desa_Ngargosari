@@ -65,7 +65,7 @@ $qStruktur   = mysqli_query($koneksi, "SELECT * FROM struktur_pemerintahan ORDER
 
         <!-- HEADER -->
         <header class="bg-white px-8 py-5 shadow">
-            <h2 class="text-xl font-semibold text-gray-800">Dashboard Admin Desa Ngargosari</h2>
+            <h2 class="text-xl font-semibold text-gray-800">Profil Desa Admin Desa Ngargosari</h2>
             <p class="text-gray-500 text-sm">Profil Desa</p>
         </header>
 
@@ -108,11 +108,14 @@ $qStruktur   = mysqli_query($koneksi, "SELECT * FROM struktur_pemerintahan ORDER
                                 <td class="p-3"><?= $profil['jumlah_dusun'] ?></td>
                                 <td class="p-3"><?= $profil['nama_dusun'] ?></td>
                                 <td class="p-3 text-center">
-                                    <a href="profil_edit.php?id=<?= $profil['id'] ?>"
-                                       class="bg-yellow-400 px-3 py-1 rounded text-sm">Edit</a>
-                                    <a href="profil_hapus.php?id=<?= $profil['id'] ?>"
-                                       class="bg-red-500 text-white px-3 py-1 rounded text-sm"
-                                       onclick="return confirm('Yakin hapus data?')">Hapus</a>
+                                    <!-- Ubah flex ke flex-col untuk vertikal -->
+                                    <div class="flex flex-col items-center gap-2">
+                                        <a href="profil_edit.php?id=<?= $profil['id'] ?>"
+                                           class="bg-yellow-400 px-3 py-1 rounded text-sm w-full text-center">Edit</a>
+                                        <a href="profil_hapus.php?id=<?= $profil['id'] ?>"
+                                           class="bg-red-500 text-white px-3 py-1 rounded text-sm w-full text-center"
+                                           onclick="return confirm('Yakin hapus data?')">Hapus</a>
+                                    </div>
                                 </td>
                             </tr>
                         <?php else: ?>
@@ -128,113 +131,132 @@ $qStruktur   = mysqli_query($koneksi, "SELECT * FROM struktur_pemerintahan ORDER
             </section>
 
             <!-- ================= BATAS WILAYAH ================= -->
-            <section class="bg-white rounded shadow">
-                <div class="flex justify-between items-center px-6 py-4 border-b">
-                    <h2 class="font-semibold text-lg">Batas Wilayah</h2>
-                    <?php if (!$batas): ?>
-                        <a href="batas_tambah.php"
-                           class="bg-green-700 text-white px-4 py-2 rounded text-sm hover:bg-green-800">
-                           + Tambah Batas
-                        </a>
-                    <?php endif; ?>
-                </div>
+<section class="bg-white rounded shadow">
+    <div class="flex justify-between items-center px-6 py-4 border-b">
+        <h2 class="font-semibold text-lg">Batas Wilayah</h2>
+        <?php if (!$batas): ?>
+            <a href="batas_tambah.php"
+               class="bg-green-700 text-white px-4 py-2 rounded text-sm hover:bg-green-800">
+               + Tambah Batas
+            </a>
+        <?php endif; ?>
+    </div>
 
-                <div class="overflow-x-auto">
-                    <table class="min-w-[800px] w-full text-sm">
-                        <thead class="bg-green-200">
-                            <tr>
-                                <th class="p-3">Utara</th>
-                                <th class="p-3">Timur</th>
-                                <th class="p-3">Selatan</th>
-                                <th class="p-3">Barat</th>
-                                <th class="p-3 text-center">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php if ($batas): ?>
-                            <tr class="border-t">
-                                <td class="p-3"><?= $batas['utara'] ?></td>
-                                <td class="p-3"><?= $batas['timur'] ?></td>
-                                <td class="p-3"><?= $batas['selatan'] ?></td>
-                                <td class="p-3"><?= $batas['barat'] ?></td>
-                                <td class="p-3 text-center">
-                                    <a href="batas_edit.php?id=<?= $batas['id'] ?>"
-                                       class="bg-yellow-400 px-3 py-1 rounded text-sm">Edit</a>
-                                    <a href="batas_hapus.php?id=<?= $batas['id'] ?>"
-                                       class="bg-red-500 text-white px-3 py-1 rounded text-sm"
-                                       onclick="return confirm('Yakin hapus data?')">Hapus</a>
-                                </td>
-                            </tr>
-                        <?php else: ?>
-                            <tr>
-                                <td colspan="5" class="p-4 text-center text-gray-500 italic">
-                                    Data batas wilayah belum tersedia
-                                </td>
-                            </tr>
-                        <?php endif; ?>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+    <div class="overflow-x-auto">
+        <table class="min-w-[800px] w-full text-sm">
+            <thead class="bg-green-200">
+                <tr>
+                    <th class="p-3">Utara</th>
+                    <th class="p-3">Timur</th>
+                    <th class="p-3">Selatan</th>
+                    <th class="p-3">Barat</th>
+                    <th class="p-3 text-center">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php if ($batas): ?>
+                <tr class="border-t">
+                    <td class="p-3"><?= $batas['utara'] ?></td>
+                    <td class="p-3"><?= $batas['timur'] ?></td>
+                    <td class="p-3"><?= $batas['selatan'] ?></td>
+                    <td class="p-3"><?= $batas['barat'] ?></td>
+                    <td class="p-3 text-center">
+                        <div class="flex flex-col items-center gap-2">
+                            <a href="batas_edit.php?id=<?= $batas['id'] ?>"
+                               class="bg-yellow-400 px-3 py-1 rounded text-sm w-full text-center">Edit</a>
+                            <a href="batas_hapus.php?id=<?= $batas['id'] ?>"
+                               class="bg-red-500 text-white px-3 py-1 rounded text-sm w-full text-center"
+                               onclick="return confirm('Yakin hapus data?')">Hapus</a>
+                        </div>
+                    </td>
+                </tr>
+            <?php else: ?>
+                <tr>
+                    <td colspan="5" class="p-4 text-center text-gray-500 italic">
+                        Data batas wilayah belum tersedia
+                    </td>
+                </tr>
+            <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</section>
 
-            <!-- ================= STRUKTUR PEMERINTAHAN ================= -->
-            <section class="bg-white rounded shadow">
-                <div class="flex justify-between items-center px-6 py-4 border-b">
-                    <h2 class="font-semibold text-lg">Struktur Pemerintahan</h2>
-                    <a href="struktur_tambah.php"
-                       class="bg-green-700 text-white px-4 py-2 rounded text-sm hover:bg-green-800">
-                       + Tambah Struktur
-                    </a>
-                </div>
+<!-- STRUKTUR PEMERINTAHAN -->
+<section class="bg-white rounded shadow">
+<div class="flex justify-between items-center px-6 py-4 border-b">
+    <h2 class="font-semibold text-lg">Struktur Pemerintahan</h2>
+    <a href="struktur_tambah.php"
+       class="bg-green-700 text-white px-4 py-2 rounded text-sm hover:bg-green-800">
+       + Tambah Struktur
+    </a>
+</div>
 
-                <div class="overflow-x-auto">
-                    <table class="min-w-[900px] w-full text-sm">
-                        <thead class="bg-green-200">
-                            <tr>
-                                <th class="p-3 w-16 text-center">No</th>
-                                <th class="p-3">Nama</th>
-                                <th class="p-3">Jabatan</th>
-                                <th class="p-3 text-center">Gambar</th>
-                                <th class="p-3 w-32 text-center">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php if (mysqli_num_rows($qStruktur) > 0): ?>
-                            <?php $no = 1; while ($s = mysqli_fetch_assoc($qStruktur)): ?>
-                                <tr class="border-t">
-                                    <td class="p-3 text-center"><?= $no++ ?></td>
-                                    <td class="p-3"><?= $s['nama'] ?></td>
-                                    <td class="p-3"><?= $s['jabatan'] ?></td>
-                                    <td class="p-3 text-center">
-                                        <?php if ($s['gambar']): ?>
-                                            <img src="../uploads/<?= $s['gambar'] ?>"
-                                                 class="w-16 h-16 object-cover rounded mx-auto">
-                                        <?php else: ?>
-                                            <span class="text-gray-400 italic">Tidak ada</span>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td class="p-3">
-                                        <div class="flex justify-center gap-2">
-                                            <a href="struktur_edit.php?id=<?= $s['id'] ?>"
-                                               class="bg-yellow-400 px-3 py-1 rounded text-sm">Edit</a>
-                                            <a href="struktur_hapus.php?id=<?= $s['id'] ?>"
-                                               class="bg-red-500 text-white px-3 py-1 rounded text-sm"
-                                               onclick="return confirm('Yakin hapus data?')">Hapus</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            <?php endwhile; ?>
-                        <?php else: ?>
-                            <tr>
-                                <td colspan="5" class="p-4 text-center text-gray-500 italic">
-                                    Belum ada data struktur pemerintahan
-                                </td>
-                            </tr>
-                        <?php endif; ?>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+<div class="overflow-x-auto">
+<table class="min-w-[900px] w-full text-sm">
+<thead class="bg-green-200">
+<tr>
+    <th class="p-3 w-16 text-center">No</th>
+    <th class="p-3">Nama</th>
+    <th class="p-3">Jabatan</th>
+    <th class="p-3 text-center">Gambar</th>
+    <th class="p-3 w-32 text-center">Aksi</th>
+</tr>
+</thead>
+
+<tbody>
+<?php if (mysqli_num_rows($qStruktur) > 0): ?>
+<?php $no = 1; while ($s = mysqli_fetch_assoc($qStruktur)): ?>
+
+<?php
+$gambarFile   = $s['gambar'];
+$gambarServer = __DIR__ . '/../uploads/struktur/' . $gambarFile;
+$gambarWeb    = '../uploads/struktur/' . $gambarFile;
+?>
+
+<tr class="border-t">
+    <td class="p-3 text-center"><?= $no++ ?></td>
+    <td class="p-3"><?= htmlspecialchars($s['nama']) ?></td>
+    <td class="p-3"><?= htmlspecialchars($s['jabatan']) ?></td>
+
+    <td class="p-3 text-center">
+        <?php if (!empty($gambarFile) && file_exists($gambarServer)): ?>
+            <img src="<?= $gambarWeb ?>"
+                 class="w-16 h-16 object-cover rounded mx-auto border">
+        <?php else: ?>
+            <span class="text-gray-400 italic">Tidak ada</span>
+        <?php endif; ?>
+    </td>
+
+    <td class="p-3 text-center">
+        <div class="flex flex-col items-center gap-2">
+            <a href="struktur_edit.php?id=<?= $s['id'] ?>"
+               class="bg-yellow-400 px-3 py-1 rounded text-sm w-full text-center">
+               Edit
+            </a>
+            <a href="struktur_hapus.php?id=<?= $s['id'] ?>"
+               class="bg-red-500 text-white px-3 py-1 rounded text-sm w-full text-center"
+               onclick="return confirm('Yakin hapus data?')">
+               Hapus
+            </a>
+        </div>
+    </td>
+</tr>
+
+<?php endwhile; ?>
+<?php else: ?>
+<tr>
+<td colspan="5" class="p-4 text-center text-gray-500 italic">
+    Belum ada data struktur pemerintahan
+</td>
+</tr>
+<?php endif; ?>
+</tbody>
+</table>
+</div>
+</section>
+
+
 
         </main>
     </div>

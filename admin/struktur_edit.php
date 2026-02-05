@@ -7,17 +7,9 @@ if (!isset($_SESSION['login'])) {
 
 require_once "../koneksi.php";
 
-// Validasi ID
-if (!isset($_GET['id'])) {
-    header("Location: profil.php");
-    exit;
-}
-
-$id = (int) $_GET['id'];
-
-// Ambil data lama
-$query = mysqli_query($koneksi, "SELECT * FROM struktur_pemerintahan WHERE id = $id");
-$data  = mysqli_fetch_assoc($query);
+$id = $_GET['id'] ?? 0;
+$q = mysqli_query($koneksi, "SELECT * FROM struktur_pemerintahan WHERE id='$id'");
+$data = mysqli_fetch_assoc($q);
 
 if (!$data) {
     header("Location: profil.php");
@@ -29,180 +21,140 @@ $error = "";
 if (isset($_POST['update'])) {
     $nama    = mysqli_real_escape_string($koneksi, $_POST['nama']);
     $jabatan = mysqli_real_escape_string($koneksi, $_POST['jabatan']);
+    $gambarLama = $data['gambar'];
+    $gambarBaru = $gambarLama;
 
-    $gambar_lama = $data['gambar'];
-    $gambar_baru = $gambar_lama;
-
-    // Jika upload gambar baru
     if (!empty($_FILES['gambar']['name'])) {
-        $ext  = pathinfo($_FILES['gambar']['name'], PATHINFO_EXTENSION);
-        $nama_file = uniqid() . "." . $ext;
-        $tmp  = $_FILES['gambar']['tmp_name'];
-        $dir  = "../uploads/";
+        $extValid = ['jpg','jpeg','png'];
+        $ext = strtolower(pathinfo($_FILES['gambar']['name'], PATHINFO_EXTENSION));
 
-        move_uploaded_file($tmp, $dir . $nama_file);
+        if (!in_array($ext, $extValid)) {
+            $error = "Format gambar harus JPG, JPEG, PNG";
+        } else {
+            $namaFile = uniqid().".".$ext;
+            $folder = "../uploads/struktur/";
 
-        // Hapus gambar lama
-        if ($gambar_lama && file_exists($dir . $gambar_lama)) {
-            unlink($dir . $gambar_lama);
+            if (move_uploaded_file($_FILES['gambar']['tmp_name'], $folder.$namaFile)) {
+                if ($gambarLama && file_exists($folder.$gambarLama)) {
+                    unlink($folder.$gambarLama);
+                }
+                $gambarBaru = $namaFile;
+            }
         }
-
-        $gambar_baru = $nama_file;
     }
 
-    $update = mysqli_query($koneksi, "
-        UPDATE struktur_pemerintahan SET
-            nama    = '$nama',
-            jabatan = '$jabatan',
-            gambar  = '$gambar_baru'
-        WHERE id = $id
-    ");
-
-    if ($update) {
+    if (!$error) {
+        mysqli_query($koneksi, "
+            UPDATE struktur_pemerintahan
+            SET nama='$nama', jabatan='$jabatan', gambar='$gambarBaru'
+            WHERE id='$id'
+        ");
         header("Location: profil.php");
         exit;
-    } else {
-        $error = "Gagal mengupdate data struktur!";
     }
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="id">
-<<head>
-    <meta charset="UTF-8">
-    <title>Profil Desa</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        poppins: ['Poppins', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
+<head>
+<meta charset="UTF-8">
+<title>Admin Desa – Infografis</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Poppins',sans-serif}
+</style>
 </head>
+<body class="bg-gray-100">
+
+<div class="min-h-screen flex">
+
+<!-- SIDEBAR -->
+<aside class="fixed top-0 left-0 w-60 h-screen bg-gradient-to-b from-green-900 to-green-700 text-white z-40">
+    <div class="flex flex-col items-center py-6 border-b border-white/20">
+        <img src="../assets/img/logo.png" class="w-20 mb-3">
+        <span class="text-sm tracking-wider font-semibold">ADMIN DESA</span>
+    </div>
+
+    <nav class="mt-4 text-sm">
+        <a href="dashboard.php" class="block px-6 py-3 hover:bg-white/20">🏠 Dashboard</a>
+        <a href="profil.php" class="block px-6 py-3 hover:bg-white/20">📌 Profil Desa</a>
+        <a href="infografis.php" class="block px-6 py-3 hover:bg-white/20">📊 Infografis</a>
+        <a href="produk.php" class="block px-6 py-3 hover:bg-white/20">🛒 Produk Unggulan</a>
+        <a href="berita.php" class="block px-6 py-3 hover:bg-white/20">📰 Berita</a>
+        <a href="galeri.php" class="block px-6 py-3 hover:bg-white/20">🖼️ Galeri</a>
+        <a href="logout.php" class="block px-6 py-3 text-red-200 hover:bg-red-500/30">🚪 Logout</a>
+    </nav>
+</aside>
+
+<!-- CONTENT -->
+<main class="ml-60 flex-1">
+<header class="bg-white px-8 py-5 shadow flex justify-between items-center">
+    <div>
+        <h2 class="text-xl font-semibold text-gray-800">Profil Desa</h2>
+        <p class="text-gray-500 text-sm">Kelola Profil Desa Ngargosari</p>
+    </div>
+</header>
 
 <body class="bg-gray-100 font-poppins">
 
-<div class="flex min-h-screen">
+<div class="max-w-3xl mx-auto p-8">
+<h2 class="text-2xl font-semibold mb-6">Edit Struktur Pemerintahan</h2>
 
-    <!-- ================= SIDEBAR ================= -->
-    <aside class="fixed top-0 left-0 w-60 h-screen bg-gradient-to-b from-green-900 to-green-700 text-white z-50">
-        <div class="flex flex-col items-center py-6 border-b border-white/20">
-            <img src="../assets/img/logo.png" class="w-20 mb-3">
-            <span class="text-sm tracking-wider font-semibold">ADMIN DESA</span>
-        </div>
+<?php if ($error): ?>
+<div class="bg-red-100 text-red-700 p-3 rounded mb-4"><?= $error ?></div>
+<?php endif; ?>
 
-        <nav class="mt-4 text-sm">
-            <a href="dashboard.php" class="block px-6 py-3 hover:bg-white/20">🏠 Dashboard</a>
-            <a href="profil.php" class="block px-6 py-3 hover:bg-white/20">📌 Profil Desa</a>
-            <a href="infografis.php" class="block px-6 py-3 hover:bg-white/20">📊 Infografis</a>
-            <a href="produk.php" class="block px-6 py-3 hover:bg-white/20">🛒 Produk Unggulan</a>
-            <a href="berita.php" class="block px-6 py-3 hover:bg-white/20">📰 Berita</a>
-            <a href="galeri.php" class="block px-6 py-3 hover:bg-white/20">🖼️ Galeri</a>
-            <a href="logout.php" class="block px-6 py-3 text-red-200 hover:bg-red-500/30">🚪 Logout</a>
-        </nav>
-    </aside>
+<form method="post" enctype="multipart/form-data" class="bg-white p-6 rounded shadow space-y-4">
 
-    <!-- ================= CONTENT ================= -->
-    <div class="flex-1 ml-60">
-
-        <!-- HEADER -->
-        <header class="bg-white px-8 py-5 shadow">
-            <h2 class="text-xl font-semibold text-gray-800">Dashboard Admin Desa Ngargosari</h2>
-            <p class="text-gray-500 text-sm">Profil Desa</p>
-        </header>
-
-        <main class="p-8 space-y-10">
-
-<body class="bg-black/40">
-
-<!-- OVERLAY -->
-<div class="fixed inset-0 flex items-center justify-center z-50">
-
-    <!-- MODAL -->
-    <div class="bg-white w-full max-w-lg rounded-lg shadow-lg">
-
-        <!-- HEADER -->
-        <div class="flex justify-between items-center px-6 py-4 border-b">
-            <h2 class="text-lg font-semibold text-gray-800">
-                Edit Struktur Pemerintahan
-            </h2>
-            <a href="profil.php"
-               class="text-gray-400 hover:text-red-500 text-xl">
-               &times;
-            </a>
-        </div>
-
-        <!-- FORM -->
-        <form method="post" enctype="multipart/form-data" class="p-6 space-y-4">
-
-            <?php if ($error): ?>
-                <div class="bg-red-100 text-red-600 px-4 py-2 rounded text-sm">
-                    <?= $error ?>
-                </div>
-            <?php endif; ?>
-
-            <!-- Nama -->
-            <div>
-                <label class="block text-sm font-medium mb-1">Nama</label>
-                <input type="text" name="nama" required
-                       value="<?= htmlspecialchars($data['nama']) ?>"
-                       class="w-full border rounded px-3 py-2
-                              focus:outline-none focus:ring-1 focus:ring-green-600">
-            </div>
-
-            <!-- Jabatan -->
-            <div>
-                <label class="block text-sm font-medium mb-1">Jabatan</label>
-                <input type="text" name="jabatan" required
-                       value="<?= htmlspecialchars($data['jabatan']) ?>"
-                       class="w-full border rounded px-3 py-2
-                              focus:outline-none focus:ring-1 focus:ring-green-600">
-            </div>
-
-            <!-- Gambar Lama -->
-            <?php if ($data['gambar']): ?>
-            <div>
-                <label class="block text-sm font-medium mb-1">Foto Saat Ini</label>
-                <img src="../uploads/<?= $data['gambar'] ?>"
-                     class="w-28 h-28 object-cover rounded border">
-            </div>
-            <?php endif; ?>
-
-            <!-- Upload Baru -->
-            <div>
-                <label class="block text-sm font-medium mb-1">
-                    Ganti Foto (Opsional)
-                </label>
-                <input type="file" name="gambar" accept="image/*"
-                       class="w-full text-sm">
-            </div>
-
-            <!-- BUTTON -->
-            <div class="flex justify-end gap-3 pt-4 border-t">
-                <a href="profil.php"
-                   class="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 text-sm">
-                    Batal
-                </a>
-
-                <button type="submit" name="update"
-                        class="px-4 py-2 rounded bg-yellow-500 hover:bg-yellow-600 text-black text-sm">
-                    Update
-                </button>
-            </div>
-
-        </form>
-
-    </div>
+<div>
+<label class="block font-medium">Nama</label>
+<input type="text" name="nama" value="<?= $data['nama'] ?>" required class="w-full border px-3 py-2 rounded">
 </div>
+
+<div>
+<label class="block font-medium">Jabatan</label>
+<input type="text" name="jabatan" value="<?= $data['jabatan'] ?>" required class="w-full border px-3 py-2 rounded">
+</div>
+
+<div>
+<label class="block font-medium">Foto</label>
+<input type="file" name="gambar" accept="image/*"
+       onchange="previewFoto(this)"
+       class="w-full border px-3 py-2 rounded">
+
+<div class="mt-3 flex justify-center">
+<?php if ($data['gambar']): ?>
+<img id="preview"
+     src="../uploads/struktur/<?= $data['gambar'] ?>"
+     class="w-32 h-32 object-cover rounded border">
+<?php else: ?>
+<img id="preview" class="hidden w-32 h-32 object-cover rounded border">
+<?php endif; ?>
+</div>
+</div>
+
+<div class="flex gap-3 pt-4">
+<button name="update" class="bg-green-700 text-white px-6 py-2 rounded">Update</button>
+<a href="profil.php" class="bg-gray-400 text-white px-6 py-2 rounded">Batal</a>
+</div>
+
+</form>
+</div>
+
+<script>
+function previewFoto(input) {
+    const img = document.getElementById('preview');
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = e => img.src = e.target.result;
+        img.classList.remove('hidden');
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
 
 </body>
 </html>

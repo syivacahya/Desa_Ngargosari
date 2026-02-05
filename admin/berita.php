@@ -94,7 +94,7 @@ if (isset($_POST['update'])) {
             <p class="text-gray-500 text-sm">Kelola berita Desa Ngargosari</p>
         </div>
         <button onclick="showAddModal()" class="bg-green-700 hover:bg-green-800 text-white px-4 py-2 rounded text-sm">
-            ➕ Tambah Berita
+            + Tambah Berita
         </button>
     </header>
 
@@ -130,12 +130,12 @@ if (isset($_POST['update'])) {
                                 <div class="flex justify-center items-center gap-2">
                                     <button onclick='editBerita(<?= htmlspecialchars(json_encode($row), ENT_QUOTES) ?>)' 
                                             class="bg-yellow-400 hover:bg-yellow-500 px-3 py-1 rounded text-xs">
-                                        ✏️ Edit
+                                         Edit
                                     </button>
                                     <a href="berita_hapus.php?id=<?= $row['id'] ?>" 
                                        onclick="return confirm('Yakin ingin menghapus berita ini?')" 
                                        class="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-md text-xs font-medium">
-                                        🗑️ Hapus
+                                         Hapus
                                     </a>
                                 </div>
                             </td>

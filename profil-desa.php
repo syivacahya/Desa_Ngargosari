@@ -1,26 +1,16 @@
 <?php
 include "koneksi.php";
+$halaman = basename($_SERVER['PHP_SELF']);
+include "partials/header.php";
 
-/* Ambil profil desa dengan pengecekan */
-$result = mysqli_query($koneksi,"SELECT * FROM profil_desa WHERE id=1");
+/* AMBIL DATA */
+$qProfil   = mysqli_query($koneksi, "SELECT * FROM profil_desa LIMIT 1");
+$profil    = mysqli_fetch_assoc($qProfil);
 
-if($result && mysqli_num_rows($result) > 0){
-    $profil = mysqli_fetch_assoc($result);
-} else {
-    $profil = [
-        'sejarah' => 'Belum ada sejarah yang diinput.',
-        'visi_misi' => 'Belum ada visi & misi yang diinput.'
-    ];
-}
+$qBatas    = mysqli_query($koneksi, "SELECT * FROM batas_wilayah LIMIT 1");
+$batas     = mysqli_fetch_assoc($qBatas);
 
-/* Ambil struktur pemerintahan desa */
-$struktur_result = mysqli_query($koneksi,"SELECT * FROM struktur_desa ORDER BY id ASC");
-$struktur = [];
-if($struktur_result && mysqli_num_rows($struktur_result) > 0){
-    while($row = mysqli_fetch_assoc($struktur_result)){
-        $struktur[] = $row;
-    }
-}
+$qStruktur = mysqli_query($koneksi, "SELECT * FROM struktur_pemerintahan ORDER BY id ASC");
 ?>
 
 <!DOCTYPE html>
@@ -29,188 +19,109 @@ if($struktur_result && mysqli_num_rows($struktur_result) > 0){
 <meta charset="UTF-8">
 <title>Profil Desa Ngargosari</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-/* ========== BASIC STYLES ========== */
-body{
-    margin:0;
-    font-family:'Poppins',sans-serif;
-    background:#f4f6f9;
-    display:flex;
-}
-/* ========== SIDEBAR ========== */
-.sidebar{
-    width:220px;
-    background:#3a562e;
-    min-height:100vh;
-    padding:20px;
-    color:white;
-    display:flex;
-    flex-direction:column;
-}
-.sidebar .logo-box{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-bottom:30px;
-}
-.sidebar .logo-box img{
-    width:40px;
-}
-.sidebar a{
-    display:block;
-    color:white;
-    padding:10px 15px;
-    margin-bottom:5px;
-    border-radius:8px;
-    text-decoration:none;
-}
-.sidebar a.active, .sidebar a:hover{
-    background:#4a6b3c;
-}
-/* ========== MAIN CONTENT ========== */
-.main{
-    flex:1;
-    padding:30px;
-}
-/* ========== HEADER ========== */
-.header h2{
-    margin:0;
-    color:#1b5e20;
-}
-.header p{
-    margin:5px 0 20px 0;
-    color:#555;
-}
-/* ========== SECTIONS ========== */
-.section{
-    background:#fff;
-    padding:30px;
-    border-radius:15px;
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
-    margin-bottom:35px;
-}
-.struktur{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:25px;
-    margin-top:25px;
-}
-.card{
-    text-align:center;
-}
-.card img{
-    width:100%;
-    border-radius:15px;
-    box-shadow:0 4px 10px rgba(0,0,0,.1);
-}
-.card h4{
-    margin:12px 0 5px;
-    color:#1b5e20;
-}
-.card span{
-    font-size:14px;
-    color:#555;
-}
-/* ========== FOOTER ========== */
-footer{
-    margin-top:40px;
-}
-footer .bg-footer{
-    background:#4a6b3c;
-    color:white;
-}
-footer .bg-footer a{
-    color:white;
-}
-footer .bottom{
-    background:#3a562e;
-    color:white;
-    text-align:center;
-    font-size:12px;
-    padding:5px 0;
-}
+body { font-family: 'Poppins', sans-serif; }
 </style>
 </head>
 
-<body>
+<body class="bg-white">
 
-<!-- ================= SIDEBAR ================= -->
-<div class="sidebar">
+<main class="max-w-6xl mx-auto px-6 py-12 space-y-16">
 
-    <div class="logo-box">
-        <img src="assets/img/logo.png" alt="Logo Desa Ngargosari">
-        <span>ADMIN DESA</span>
-    </div>
+<!-- ================= VISI ================= -->
+<section>
+<h2 class="text-2xl font-semibold mb-6">VISI</h2>
+<div class="bg-[#d8e6c9] p-8 rounded-xl text-gray-700 text-center leading-relaxed">
+    <?= nl2br($profil['visi'] ?? '-') ?>
+</div>
+</section>
 
-    <a href="dashboard.php">🏠 Dashboard</a>
-    <a href="profil.php" class="active">📌 Profil Desa</a>
-    <a href="infografis.php">📊 Infografis</a>
-    <a href="produk.php">🛒 Produk Unggulan</a>
-    <a href="logout.php">🚪 Logout</a>
+<!-- ================= MISI ================= -->
+<section>
+<h2 class="text-2xl font-semibold mb-6">MISI</h2>
+<div class="bg-[#d8e6c9] p-8 rounded-xl text-gray-700 text-center leading-relaxed">
+    <?= nl2br($profil['misi'] ?? '-') ?>
+</div>
+</section>
 
+<!-- ================= SEJARAH ================= -->
+<section>
+<h2 class="text-2xl font-semibold mb-6">Sejarah Desa</h2>
+<div class="bg-[#d8e6c9] p-8 rounded-xl text-gray-700 text-center leading-relaxed">
+    <?= nl2br($profil['sejarah'] ?? '-') ?>
+</div>
+</section>
+
+<!-- ================= PEMERINTAHAN ================= -->
+<section>
+<h2 class="text-2xl font-semibold mb-8">Pemerintahan Desa</h2>
+
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
+<?php if (mysqli_num_rows($qStruktur) > 0): ?>
+<?php while ($s = mysqli_fetch_assoc($qStruktur)): ?>
+
+<?php
+$gambarFile = $s['gambar'];
+$gambarPath = "uploads/struktur/" . $gambarFile;
+?>
+
+<div class="border rounded-lg p-4 text-center shadow-sm">
+    <?php if (!empty($gambarFile) && file_exists($gambarPath)): ?>
+        <img src="<?= $gambarPath ?>"
+             class="w-20 h-20 mx-auto object-cover rounded-md mb-3">
+    <?php else: ?>
+        <img src="assets/img/no-image.png"
+             class="w-20 h-20 mx-auto object-cover rounded-md mb-3">
+    <?php endif; ?>
+
+    <p class="font-semibold text-sm"><?= htmlspecialchars($s['jabatan']) ?></p>
+    <p class="text-xs text-gray-500"><?= htmlspecialchars($s['nama']) ?></p>
 </div>
 
-<!-- ================= MAIN CONTENT ================= -->
-<div class="main">
+<?php endwhile; ?>
+<?php endif; ?>
+</div>
+</section>
 
-    <!-- HEADER -->
-    <div class="header">
-        <h2>Profil Desa</h2>
-        <p>Kelola informasi desa dan struktur pemerintahan</p>
-    </div>
+<!-- ================= BATAS & PETA ================= -->
+<section class="grid md:grid-cols-2 gap-10 items-start">
 
-    <!-- ================= PROFIL DESA ================= -->
-    <div class="section">
-        <h2>Sejarah Singkat Desa</h2>
-        <p><?= nl2br($profil['sejarah']); ?></p>
-    </div>
+<div class="bg-[#d8e6c9] p-8 rounded-xl space-y-4">
+<h3 class="font-semibold text-lg">Batas Wilayah Desa:</h3>
 
-    <div class="section">
-        <h2>Visi & Misi</h2>
-        <p><?= nl2br($profil['visi_misi']); ?></p>
-    </div>
+<?php if ($batas): ?>
+<ul class="text-gray-700 text-sm space-y-1">
+    <li><strong>Utara:</strong> <?= $batas['utara'] ?></li>
+    <li><strong>Barat:</strong> <?= $batas['barat'] ?></li>
+    <li><strong>Timur:</strong> <?= $batas['timur'] ?></li>
+    <li><strong>Selatan:</strong> <?= $batas['selatan'] ?></li>
+</ul>
+<?php endif; ?>
 
-    <div class="section">
-        <h2>Struktur Pemerintahan Desa</h2>
+<hr class="my-4">
 
-        <div class="struktur">
-            <?php if(!empty($struktur)): ?>
-                <?php foreach($struktur as $s): ?>
-                    <div class="card">
-                        <img src="assets/img/struktur/<?= $s['foto']; ?>" alt="<?= $s['nama']; ?>">
-                        <h4><?= $s['nama']; ?></h4>
-                        <span><?= $s['jabatan']; ?></span>
-                    </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p>Belum ada data struktur pemerintahan desa.</p>
-            <?php endif; ?>
-        </div>
+<p class="text-sm"><strong>Luas Wilayah:</strong> <?= $profil['luas_wilayah'] ?? '-' ?></p>
+<p class="text-sm"><strong>Jumlah Dusun:</strong> <?= $profil['jumlah_dusun'] ?? '-' ?></p>
+<p class="text-sm"><strong>Nama Dusun:</strong> <?= $profil['nama_dusun'] ?? '-' ?></p>
+<p class="text-sm"><strong>Jumlah RT:</strong> <?= $profil['jumlah_rt'] ?? '-' ?></p>
+</div>
 
-    </div>
+<div>
+<h3 class="font-semibold text-lg mb-4">Peta Desa Ngargosari</h3>
+<div class="border rounded-xl overflow-hidden">
+<iframe class="w-full h-72 rounded-lg"
+src="https://www.google.com/maps?q=Desa+Ngargosari+Loano+Purworejo&output=embed"
+loading="lazy"></iframe>
+</div>
+</div>
 
-    <!-- ================= FOOTER ================= -->
-    <footer>
-        <div class="bg-footer max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-2 gap-6 text-sm">
-            <div>
-                <img src="assets/img/logo.png" class="w-12 mb-3">
-                <p class="font-semibold">Pemerintah Desa Ngargosari</p>
-                <p>Kecamatan Loano, Kabupaten Purworejo</p>
-            </div>
-            <div>
-                <p class="font-semibold mb-2">Hubungi Kami</p>
-                <p>📞 08888888</p>
-                <p>📷 Instagram</p>
-            </div>
-        </div>
-        <div class="bottom">
-            © 2026 Desa Ngargosari
-        </div>
-    </footer>
+</section>
 
-</div> <!-- END MAIN -->
+</main>
 
+<?php include "partials/footer.php"; ?>
 </body>
 </html>

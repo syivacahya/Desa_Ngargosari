@@ -3,7 +3,6 @@ session_start();
 
 require_once '../koneksi.php';
 
-
 $aksi = $_GET['aksi'];
 
 if($aksi == 'tambah'){
@@ -17,9 +16,21 @@ if($aksi == 'tambah'){
     $tmp = $_FILES['gambar']['tmp_name'];
     move_uploaded_file($tmp, "../assets/img/produk/".$gambar);
 
-    mysqli_query($koneksi,"INSERT INTO produk 
+    $query = mysqli_query($koneksi,"INSERT INTO produk 
         (nama_produk,harga,produsen,lokasi,deskripsi,gambar)
         VALUES ('$nama','$harga','$produsen','$lokasi','$deskripsi','$gambar')");
+
+    if($query){
+        echo "<script>
+                alert('Produk berhasil ditambahkan!');
+                window.location='produk.php';
+              </script>";
+    }else{
+        echo "<script>
+                alert('Gagal menambahkan produk!');
+                window.location='produk.php';
+              </script>";
+    }
 }
 
 if($aksi == 'edit'){
@@ -35,7 +46,7 @@ if($aksi == 'edit'){
         $tmp = $_FILES['gambar']['tmp_name'];
         move_uploaded_file($tmp, "../assets/img/produk/".$gambar);
 
-        mysqli_query($koneksi,"UPDATE produk SET
+        $query = mysqli_query($koneksi,"UPDATE produk SET
             nama_produk='$nama',
             harga='$harga',
             produsen='$produsen',
@@ -44,7 +55,7 @@ if($aksi == 'edit'){
             gambar='$gambar'
             WHERE id_produk='$id'");
     }else{
-        mysqli_query($koneksi,"UPDATE produk SET
+        $query = mysqli_query($koneksi,"UPDATE produk SET
             nama_produk='$nama',
             harga='$harga',
             produsen='$produsen',
@@ -52,4 +63,17 @@ if($aksi == 'edit'){
             deskripsi='$deskripsi'
             WHERE id_produk='$id'");
     }
+
+    if($query){
+        echo "<script>
+                alert('Produk berhasil diperbarui!');
+                window.location='produk.php';
+              </script>";
+    }else{
+        echo "<script>
+                alert('Gagal memperbarui produk!');
+                window.location='produk.php';
+              </script>";
+    }
 }
+?>

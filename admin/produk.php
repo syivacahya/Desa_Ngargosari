@@ -47,7 +47,7 @@ body { font-family: 'Poppins', sans-serif; }
 <!-- HEADER -->
 <!-- HEADER -->
 <header class="bg-white px-8 py-5 shadow">
-    <h2 class="text-xl font-semibold text-gray-800">Dashboard Admin Desa Ngargosari</h2>
+    <h2 class="text-xl font-semibold text-gray-800">Produk Unggulan Desa Ngargosari</h2>
     <p class="text-gray-500 text-sm">Produk Unggulan Desa </p>
 </header>
 
@@ -58,7 +58,7 @@ body { font-family: 'Poppins', sans-serif; }
 
 <button onclick="tambahProduk()"
 class="mb-5 bg-green-700 hover:bg-green-800 text-white px-5 py-2 rounded-lg transition">
-➕ Tambah Produk
++ Tambah Produk
 </button>
 
 <div class="overflow-x-auto">

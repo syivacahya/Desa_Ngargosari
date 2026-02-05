@@ -1,5 +1,7 @@
 <?php
 include "koneksi.php";
+$halaman = basename($_SERVER['PHP_SELF']);
+include "partials/header.php";
 
 /* PAGINATION */
 $batas = 4;
@@ -31,34 +33,8 @@ $data = mysqli_query($koneksi,"
 
 <body class="bg-white text-gray-800">
 
-<!-- ===== HEADER ===== -->
-<header class="bg-green-800 text-white">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-
-        <div class="flex items-center gap-3">
-            <img src="assets/img/logo.png" class="w-12">
-            <div class="leading-tight">
-                <p class="font-semibold">Desa Ngargosari</p>
-                <p class="text-xs opacity-90">Kecamatan Loano, Kabupaten Purworejo</p>
-            </div>
-        </div>
-
-        <nav class="flex gap-5 text-sm">
-            <a href="index.php" class="hover:underline">Home</a>
-            <a href="profil-desa.php" class="hover:underline">Profil Desa</a>
-            <a href="produk.php" class="border-b-2 border-white pb-1 font-medium">Produk Unggulan</a>
-            <a href="infografis.php" class="hover:underline">Infografis</a>
-        </nav>
-
-    </div>
-</header>
-
 <!-- ===== CONTENT ===== -->
 <main class="max-w-7xl mx-auto px-6 py-12">
-
-    <h1 class="text-2xl font-semibold mb-10 text-center">
-        Produk Unggulan Desa
-    </h1>
 
     <!-- GRID PRODUK -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center">
@@ -96,32 +72,8 @@ $data = mysqli_query($koneksi,"
 
 </main>
 
-<!-- ===== FOOTER ===== -->
-<footer class="bg-green-800 text-white mt-16">
-    <div class="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-8 text-sm">
 
-        <div>
-            <img src="assets/img/logo.png" class="w-14 mb-3">
-            <p class="font-semibold">Pemerintah Desa Ngargosari</p>
-            <p class="opacity-90 mt-2">
-                Kecamatan Loano, Kabupaten Purworejo<br>
-                Provinsi Jawa Tengah
-            </p>
-        </div>
-
-        <div>
-            <p class="font-semibold mb-2">Hubungi Kami</p>
-            <p>📞 08888888</p>
-            <p>✉️ email</p>
-            <p>📷 instagram</p>
-        </div>
-
-    </div>
-
-    <div class="bg-green-900 text-center text-xs py-2">
-        © 2026 Desa Ngargosari
-    </div>
-</footer>
 
 </body>
 </html>
+<?php include "partials/footer.php"; ?>
