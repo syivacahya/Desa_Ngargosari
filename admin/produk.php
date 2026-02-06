@@ -124,49 +124,112 @@ Hapus
 <script>
 function tambahProduk(){
 Swal.fire({
-title:'Tambah Produk',
-html:`
-<form id="formTambah" class="flex flex-col gap-2 text-left" enctype="multipart/form-data">
-<input name="nama_produk" placeholder="Nama Produk" required class="border p-2 rounded">
-<input type="number" name="harga" placeholder="Harga" required class="border p-2 rounded">
-<input name="produsen" placeholder="Produsen" required class="border p-2 rounded">
-<input name="no_wa" placeholder="628xxxxxxxxxx" required class="border p-2 rounded">
-<input name="lokasi" placeholder="Lokasi" required class="border p-2 rounded">
-<textarea name="deskripsi" placeholder="Deskripsi" class="border p-2 rounded"></textarea>
-<input type="file" name="gambar" required>
-</form>`,
-showCancelButton:true,
-confirmButtonText:'Simpan',
-preConfirm:()=>fetch('aksi_produk.php?aksi=tambah',{
-    method:'POST',
-    body:new FormData(document.getElementById('formTambah'))
-})
-}).then(()=>location.reload());
-}
+    title:'Tambah Produk',
+    html:`
+    <form id="formTambah" class="flex flex-col gap-3 text-left" enctype="multipart/form-data">
 
-function editProduk(d){
-Swal.fire({
-title:'Edit Produk',
-html:`
-<form id="formEdit" class="flex flex-col gap-2 text-left" enctype="multipart/form-data">
-<input type="hidden" name="id_produk" value="${d.id_produk}">
-<input name="nama_produk" value="${d.nama_produk}" class="border p-2 rounded">
-<input type="number" name="harga" value="${d.harga}" class="border p-2 rounded">
-<input name="produsen" value="${d.produsen}" class="border p-2 rounded">
-<input name="no_wa" value="${d.no_wa}" class="border p-2 rounded">
-<input name="lokasi" value="${d.lokasi}" class="border p-2 rounded">
-<textarea name="deskripsi" class="border p-2 rounded">${d.deskripsi}</textarea>
-<input type="file" name="gambar">
-</form>`,
-showCancelButton:true,
-confirmButtonText:'Update',
-preConfirm:()=>fetch('aksi_produk.php?aksi=edit',{
-    method:'POST',
-    body:new FormData(document.getElementById('formEdit'))
-})
+        <div>
+            <label class="block font-semibold mb-1">Nama Produk</label>
+            <input name="nama_produk" required class="border p-2 rounded w-full">
+        </div>
+
+        <div>
+            <label class="block font-semibold mb-1">Harga</label>
+            <input type="number" name="harga" required class="border p-2 rounded w-full">
+        </div>
+
+        <div>
+            <label class="block font-semibold mb-1">Produsen</label>
+            <input name="produsen" required class="border p-2 rounded w-full">
+        </div>
+
+        <div>
+            <label class="block font-semibold mb-1">Nomor WhatsApp</label>
+            <input name="no_wa" placeholder="628xxxxxxxxxx" required class="border p-2 rounded w-full">
+        </div>
+
+        <div>
+            <label class="block font-semibold mb-1">Lokasi</label>
+            <input name="lokasi" required class="border p-2 rounded w-full">
+        </div>
+
+        <div>
+            <label class="block font-semibold mb-1">Deskripsi</label>
+            <textarea name="deskripsi" class="border p-2 rounded w-full"></textarea>
+        </div>
+
+        <div>
+            <label class="block font-semibold mb-1">Gambar Produk</label>
+            <input type="file" name="gambar" required class="w-full">
+        </div>
+
+    </form>`,
+    showCancelButton:true,
+    confirmButtonText:'Simpan',
+    preConfirm:()=>fetch('aksi_produk.php?aksi=tambah',{
+        method:'POST',
+        body:new FormData(document.getElementById('formTambah'))
+    })
 }).then(()=>location.reload());
 }
 </script>
+
+
+<script>
+function editProduk(d){
+Swal.fire({
+    title:'Edit Produk',
+    html:`
+    <form id="formEdit" class="flex flex-col gap-3 text-left" enctype="multipart/form-data">
+
+        <input type="hidden" name="id_produk" value="${d.id_produk}">
+
+        <div>
+            <label class="block font-semibold mb-1">Nama Produk</label>
+            <input name="nama_produk" value="${d.nama_produk}" class="border p-2 rounded w-full">
+        </div>
+
+        <div>
+            <label class="block font-semibold mb-1">Harga</label>
+            <input type="number" name="harga" value="${d.harga}" class="border p-2 rounded w-full">
+        </div>
+
+        <div>
+            <label class="block font-semibold mb-1">Produsen</label>
+            <input name="produsen" value="${d.produsen}" class="border p-2 rounded w-full">
+        </div>
+
+        <div>
+            <label class="block font-semibold mb-1">Nomor WhatsApp</label>
+            <input name="no_wa" value="${d.no_wa}" class="border p-2 rounded w-full">
+        </div>
+
+        <div>
+            <label class="block font-semibold mb-1">Lokasi</label>
+            <input name="lokasi" value="${d.lokasi}" class="border p-2 rounded w-full">
+        </div>
+
+        <div>
+            <label class="block font-semibold mb-1">Deskripsi</label>
+            <textarea name="deskripsi" class="border p-2 rounded w-full">${d.deskripsi}</textarea>
+        </div>
+
+        <div>
+            <label class="block font-semibold mb-1">Gambar Produk (opsional)</label>
+            <input type="file" name="gambar" class="w-full">
+        </div>
+
+    </form>`,
+    showCancelButton:true,
+    confirmButtonText:'Update',
+    preConfirm:()=>fetch('aksi_produk.php?aksi=edit',{
+        method:'POST',
+        body:new FormData(document.getElementById('formEdit'))
+    })
+}).then(()=>location.reload());
+}
+</script>
+
 
 </body>
 </html>

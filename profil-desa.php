@@ -1,3 +1,4 @@
+
 <?php
 include "koneksi.php";
 $halaman = basename($_SERVER['PHP_SELF']);
@@ -27,30 +28,30 @@ body { font-family: 'Poppins', sans-serif; }
 </style>
 </head>
 
-<body class="bg-white">
+<body class="bg-[#F3F4F6]">
 
 <main class="max-w-6xl mx-auto px-6 py-12 space-y-16">
 
 <!-- ================= VISI ================= -->
 <section>
-<h2 class="text-2xl font-semibold mb-6">VISI</h2>
-<div class="bg-[#d8e6c9] p-8 rounded-xl text-gray-700 text-center leading-relaxed">
+<div class="bg-white p-8 rounded-xl text-gray-700 text-center leading-relaxed">
+    <h2 class="text-2xl font-semibold mb-6">VISI</h2>
     <?= nl2br($profil['visi'] ?? '-') ?>
 </div>
 </section>
 
 <!-- ================= MISI ================= -->
 <section>
-<h2 class="text-2xl font-semibold mb-6">MISI</h2>
-<div class="bg-[#d8e6c9] p-8 rounded-xl text-gray-700 text-center leading-relaxed">
+<div class="bg-white p-8 rounded-xl text-gray-700 text-center leading-relaxed">
+    <h2 class="text-2xl font-semibold mb-6">MISI</h2>
     <?= nl2br($profil['misi'] ?? '-') ?>
 </div>
 </section>
 
 <!-- ================= SEJARAH ================= -->
 <section>
-<h2 class="text-2xl font-semibold mb-6">Sejarah Desa</h2>
-<div class="bg-[#d8e6c9] p-8 rounded-xl text-gray-700 text-center leading-relaxed">
+<div class="bg-white p-8 rounded-xl text-gray-700 text-center leading-relaxed">
+    <h2 class="text-2xl font-semibold mb-6">Sejarah Desa</h2>
     <?= nl2br($profil['sejarah'] ?? '-') ?>
 </div>
 </section>

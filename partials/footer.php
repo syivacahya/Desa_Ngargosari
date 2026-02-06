@@ -14,7 +14,10 @@
                         Pemerintah Desa Ngargosari
                     </p>
                     <p>
-                        Desa Ngargosari, Kecamatan Loano, Kabupaten Purworejo<br>
+                        Balai Desa Ngargosari<br>
+                        Jl. / Dusun<br>
+                        Kecamatan Loano<br>
+                        Kabupaten Purworejo<br>
                         Provinsi Jawa Tengah, 54181
                     </p>
                     <p class="mt-2">
@@ -44,6 +47,7 @@
 
     <!-- CREDIT -->
     <div class="bg-green-800 text-center text-sm py-3">
-        © KPM UNSIQ 52 NGARGOSARI
+        © 2026 KPM 52 UNSIQ. All rights reserved.
+
     </div>
 </footer>

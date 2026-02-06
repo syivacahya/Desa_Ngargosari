@@ -88,22 +88,35 @@ if (isset($_POST['update'])) {
 <form method="post" class="bg-white p-6 rounded shadow max-w-xl mx-auto space-y-4">
     <h2 class="text-xl font-semibold text-gray-800">Edit Batas Wilayah Desa</h2>
 
-    <input type="text" name="utara" value="<?= htmlspecialchars($row['utara']) ?>"
-           required class="w-full border p-2 rounded">
+        <label class="block font-bold mb-1">Utara</label>
+        <input type="text" name="utara"
+            value="<?= htmlspecialchars($row['utara']) ?>"
+            required
+            class="w-full border p-2 rounded mb-3">
 
-    <input type="text" name="timur" value="<?= htmlspecialchars($row['timur']) ?>"
-           required class="w-full border p-2 rounded">
-           
-     <input type="text" name="selatan" value="<?= htmlspecialchars($row['selatan']) ?>"
-           required class="w-full border p-2 rounded">
+        <label class="block font-bold mb-1">Timur</label>
+        <input type="text" name="timur"
+            value="<?= htmlspecialchars($row['timur']) ?>"
+            required
+            class="w-full border p-2 rounded mb-3">
 
-    <input type="text" name="barat" value="<?= htmlspecialchars($row['barat']) ?>"
-           required class="w-full border p-2 rounded">
+        <label class="block font-bold mb-1">Selatan</label>
+        <input type="text" name="selatan"
+            value="<?= htmlspecialchars($row['selatan']) ?>"
+            required
+            class="w-full border p-2 rounded mb-3">
+
+        <label class="block font-bold mb-1">Barat</label>
+        <input type="text" name="barat"
+            value="<?= htmlspecialchars($row['barat']) ?>"
+            required
+            class="w-full border p-2 rounded">
+
 
     <div class="flex gap-3">
         <button type="submit" name="update"
             class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded">
-            ✏️ Update
+             Update
         </button>
 
         <a href="profil.php"

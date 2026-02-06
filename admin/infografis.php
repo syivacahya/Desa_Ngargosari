@@ -227,35 +227,94 @@ body{font-family:'Poppins',sans-serif}
 
 <!-- MODAL PENDUDUK -->
 <div id="modalPenduduk" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-<form method="post" class="bg-white p-6 rounded-xl w-96 space-y-3">
-<input type="hidden" name="id" id="pid">
-<input name="tahun" id="ptahun" class="border w-full p-2 rounded" placeholder="Tahun">
-<input name="total" id="ptotal" class="border w-full p-2 rounded" placeholder="Total">
-<input name="kk" id="pkk" class="border w-full p-2 rounded" placeholder="KK">
-<input name="laki" id="plaki" class="border w-full p-2 rounded" placeholder="Laki">
-<input name="perempuan" id="pperempuan" class="border w-full p-2 rounded" placeholder="Perempuan">
-<div class="flex justify-end gap-2">
-<button type="button" onclick="closeAll()" class="bg-gray-300 px-4 py-2 rounded">Batal</button>
-<button type="submit" name="simpan_penduduk" id="btnPenduduk" class="bg-green-700 text-white px-4 py-2 rounded">Simpan</button>
-<button type="submit" name="update_penduduk" id="btnUpdatePenduduk" class="hidden bg-yellow-500 text-white px-4 py-2 rounded">Update</button>
-</div>
+<form method="post" class="bg-white p-6 rounded-xl w-96 space-y-4">
+    <input type="hidden" name="id" id="pid">
+
+    <div>
+        <label class="block font-semibold mb-1">Tahun</label>
+        <input name="tahun" id="ptahun"
+               class="border w-full p-2 rounded">
+    </div>
+
+    <div>
+        <label class="block font-semibold mb-1">Total Penduduk</label>
+        <input name="total" id="ptotal"
+               class="border w-full p-2 rounded">
+    </div>
+
+    <div>
+        <label class="block font-semibold mb-1">Jumlah KK</label>
+        <input name="kk" id="pkk"
+               class="border w-full p-2 rounded">
+    </div>
+
+    <div>
+        <label class="block font-semibold mb-1">Laki-laki</label>
+        <input name="laki" id="plaki"
+               class="border w-full p-2 rounded">
+    </div>
+
+    <div>
+        <label class="block font-semibold mb-1">Perempuan</label>
+        <input name="perempuan" id="pperempuan"
+               class="border w-full p-2 rounded">
+    </div>
+
+    <div class="flex justify-end gap-2 pt-2">
+        <button type="button" onclick="closeAll()"
+                class="bg-gray-300 px-4 py-2 rounded">Batal</button>
+
+        <button type="submit" name="simpan_penduduk" id="btnPenduduk"
+                class="bg-green-700 text-white px-4 py-2 rounded">Simpan</button>
+
+        <button type="submit" name="update_penduduk" id="btnUpdatePenduduk"
+                class="hidden bg-yellow-500 text-white px-4 py-2 rounded">Update</button>
+    </div>
 </form>
+
 </div>
 
 <!-- MODAL UMUR -->
 <div id="modalUmur" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-<form method="post" class="bg-white p-6 rounded-xl w-96 space-y-3">
-<input type="hidden" name="id" id="uid">
-<input name="tahun" id="utahun" class="border w-full p-2 rounded" placeholder="Tahun">
-<input name="kelompok_umur" id="ukelompok_umur" class="border w-full p-2 rounded" placeholder="Kelompok Umur">
-<input name="laki" id="ulaki" class="border w-full p-2 rounded" placeholder="Laki">
-<input name="perempuan" id="uperempuan" class="border w-full p-2 rounded" placeholder="Perempuan">
-<div class="flex justify-end gap-2">
-<button type="button" onclick="closeAll()" class="bg-gray-300 px-4 py-2 rounded">Batal</button>
-<button type="submit" name="simpan_umur" id="btnUmur" class="bg-green-700 text-white px-4 py-2 rounded">Simpan</button>
-<button type="submit" name="update_umur" id="btnUpdateUmur" class="hidden bg-yellow-500 text-white px-4 py-2 rounded">Update</button>
-</div>
+<form method="post" class="bg-white p-6 rounded-xl w-96 space-y-4">
+    <input type="hidden" name="id" id="uid">
+
+    <div>
+        <label class="block font-semibold mb-1">Tahun</label>
+        <input name="tahun" id="utahun"
+               class="border w-full p-2 rounded">
+    </div>
+
+    <div>
+        <label class="block font-semibold mb-1">Kelompok Umur</label>
+        <input name="kelompok_umur" id="ukelompok_umur"
+               class="border w-full p-2 rounded">
+    </div>
+
+    <div>
+        <label class="block font-semibold mb-1">Laki-laki</label>
+        <input name="laki" id="ulaki"
+               class="border w-full p-2 rounded">
+    </div>
+
+    <div>
+        <label class="block font-semibold mb-1">Perempuan</label>
+        <input name="perempuan" id="uperempuan"
+               class="border w-full p-2 rounded">
+    </div>
+
+    <div class="flex justify-end gap-2 pt-2">
+        <button type="button" onclick="closeAll()"
+                class="bg-gray-300 px-4 py-2 rounded">Batal</button>
+
+        <button type="submit" name="simpan_umur" id="btnUmur"
+                class="bg-green-700 text-white px-4 py-2 rounded">Simpan</button>
+
+        <button type="submit" name="update_umur" id="btnUpdateUmur"
+                class="hidden bg-yellow-500 text-white px-4 py-2 rounded">Update</button>
+    </div>
 </form>
+
 </div>
 
 <script>

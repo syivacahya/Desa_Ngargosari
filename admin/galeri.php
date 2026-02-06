@@ -152,45 +152,66 @@ if (isset($_POST['simpan'])) {
 <div id="modalEdit" class="hidden fixed inset-0 flex items-center justify-center bg-black/50 z-50">
   <div class="bg-white p-6 rounded-xl w-96">
     <h2 class="font-bold text-lg mb-4">Edit Galeri</h2>
+
     <form method="post" enctype="multipart/form-data" class="space-y-4">
       <input type="hidden" name="id" id="editId">
+
       <div>
-        <label>Judul</label>
-        <input type="text" name="judul" id="editJudul" class="w-full border p-2 rounded">
+        <label class="block font-bold mb-1">Judul</label>
+        <input type="text" name="judul" id="editJudul"
+               class="w-full border p-2 rounded">
       </div>
+
       <div>
-        <label>Gambar</label>
+        <label class="block font-bold mb-1">Gambar</label>
         <input type="file" name="gambar" id="editGambar">
         <img id="previewGambar" class="w-32 mt-2 rounded border">
       </div>
+
       <div class="flex justify-end gap-2">
-        <button type="button" onclick="closeModal()" class="bg-gray-300 px-4 py-2 rounded">Batal</button>
-        <button type="submit" name="update" class="bg-yellow-500 px-4 py-2 rounded text-white">Update</button>
+        <button type="button" onclick="closeModal()"
+                class="bg-gray-300 px-4 py-2 rounded">Batal</button>
+        <button type="submit" name="update"
+                class="bg-yellow-500 px-4 py-2 rounded text-white">Update</button>
       </div>
     </form>
   </div>
 </div>
 
+
 <!-- MODAL TAMBAH -->
 <div id="modalAdd" class="hidden fixed inset-0 flex items-center justify-center bg-black/50 z-50">
   <div class="bg-white p-6 rounded-xl w-96">
     <h2 class="font-bold text-lg mb-4">Tambah Galeri</h2>
+
     <form method="post" enctype="multipart/form-data" class="space-y-4">
+
       <div>
-        <label>Judul</label>
-        <input type="text" name="judul" class="w-full border p-2 rounded" required>
+        <label class="block font-bold mb-1">Judul</label>
+        <input type="text" name="judul"
+               class="w-full border p-2 rounded"
+               required>
       </div>
+
       <div>
-        <label>Gambar</label>
-        <input type="file" name="gambar" class="w-full" required>
+        <label class="block font-bold mb-1">Gambar</label>
+        <input type="file" name="gambar"
+               class="w-full"
+               required>
       </div>
+
       <div class="flex justify-end gap-2">
-        <button type="button" onclick="closeModal()" class="bg-gray-300 px-4 py-2 rounded">Batal</button>
-        <button type="submit" name="simpan" class="bg-green-700 px-4 py-2 rounded text-white">Simpan</button>
+        <button type="button" onclick="closeModal()"
+                class="bg-gray-300 px-4 py-2 rounded">Batal</button>
+
+        <button type="submit" name="simpan"
+                class="bg-green-700 px-4 py-2 rounded text-white">Simpan</button>
       </div>
+
     </form>
   </div>
 </div>
+
 
 <script>
 function editGaleri(data){
