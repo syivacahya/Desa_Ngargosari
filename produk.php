@@ -3,18 +3,10 @@ include "koneksi.php";
 $halaman = basename($_SERVER['PHP_SELF']);
 include "partials/header.php";
 
-/* PAGINATION */
-$batas = 4;
-$hal   = isset($_GET['hal']) ? (int)$_GET['hal'] : 1;
-$mulai = ($hal - 1) * $batas;
-
-$total = mysqli_num_rows(mysqli_query($koneksi,"SELECT id_produk FROM produk"));
-$pages = ceil($total / $batas);
-
+/* AMBIL DATA PRODUK (TANPA PAGINATION) */
 $data = mysqli_query($koneksi,"
     SELECT * FROM produk
     ORDER BY id_produk DESC
-    LIMIT $mulai, $batas
 ");
 ?>
 <!DOCTYPE html>
@@ -57,23 +49,8 @@ $data = mysqli_query($koneksi,"
 
     </div>
 
-    <!-- PAGINATION -->
-    <div class="flex justify-center mt-12 gap-2">
-        <?php for($i=1;$i<=$pages;$i++): ?>
-            <a href="?hal=<?= $i ?>"
-               class="px-3 py-1 border rounded text-sm
-               <?= $i==$hal
-                    ? 'bg-green-700 text-white border-green-700'
-                    : 'hover:bg-gray-100' ?>">
-                <?= $i ?>
-            </a>
-        <?php endfor; ?>
-    </div>
-
 </main>
 
-
-
+<?php include "partials/footer.php"; ?>
 </body>
 </html>
-<?php include "partials/footer.php"; ?>

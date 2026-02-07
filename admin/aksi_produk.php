@@ -9,16 +9,18 @@ if($aksi == 'tambah'){
     $nama = $_POST['nama_produk'];
     $harga = $_POST['harga'];
     $produsen = $_POST['produsen'];
+    $no_wa = $_POST['no_wa'];
     $lokasi = $_POST['lokasi'];
     $deskripsi = $_POST['deskripsi'];
+    
 
     $gambar = $_FILES['gambar']['name'];
     $tmp = $_FILES['gambar']['tmp_name'];
     move_uploaded_file($tmp, "../assets/img/produk/".$gambar);
 
     $query = mysqli_query($koneksi,"INSERT INTO produk 
-        (nama_produk,harga,produsen,lokasi,deskripsi,gambar)
-        VALUES ('$nama','$harga','$produsen','$lokasi','$deskripsi','$gambar')");
+        (nama_produk,harga,produsen,no_wa,lokasi,deskripsi,gambar)
+        VALUES ('$nama','$harga','$produsen', '$no_wa', '$lokasi','$deskripsi','$gambar')");
 
     if($query){
         echo "<script>
@@ -38,6 +40,7 @@ if($aksi == 'edit'){
     $nama = $_POST['nama_produk'];
     $harga = $_POST['harga'];
     $produsen = $_POST['produsen'];
+    $no_wa = $_POST['no_wa'];
     $lokasi = $_POST['lokasi'];
     $deskripsi = $_POST['deskripsi'];
 
@@ -50,6 +53,7 @@ if($aksi == 'edit'){
             nama_produk='$nama',
             harga='$harga',
             produsen='$produsen',
+            no_wa= '$no_wa',
             lokasi='$lokasi',
             deskripsi='$deskripsi',
             gambar='$gambar'
@@ -59,6 +63,7 @@ if($aksi == 'edit'){
             nama_produk='$nama',
             harga='$harga',
             produsen='$produsen',
+            no_wa= '$no_wa',
             lokasi='$lokasi',
             deskripsi='$deskripsi'
             WHERE id_produk='$id'");
