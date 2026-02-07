@@ -26,11 +26,14 @@ if (!isset($halaman)) {
 <!-- ================= HEADER ================= -->
 <header class="bg-green-800 text-white sticky top-0 z-50 shadow">
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
+        <!-- LOGO -->
         <div class="flex items-center gap-3 font-semibold">
             <img src="assets/img/logo.png" class="w-10">
             Desa Ngargosari
         </div>
 
+        <!-- MENU DESKTOP -->
         <nav class="hidden md:flex gap-6 text-sm">
             <?php
             $menu = [
@@ -50,5 +53,27 @@ if (!isset($halaman)) {
                 </a>
             <?php endforeach; ?>
         </nav>
+
+        <!-- BUTTON HAMBURGER (MOBILE) -->
+        <button onclick="toggleMenu()" class="md:hidden text-2xl focus:outline-none">
+            ☰
+        </button>
+    </div>
+
+    <!-- MENU MOBILE -->
+    <div id="mobileMenu" class="hidden md:hidden bg-green-700 px-6 pb-4 space-y-2 text-sm">
+        <?php foreach ($menu as $file => $label): ?>
+            <a href="<?= $file ?>"
+               class="block py-2 border-b border-green-600 <?= $halaman == $file ? 'font-semibold underline' : '' ?>">
+                <?= $label ?>
+            </a>
+        <?php endforeach; ?>
     </div>
 </header>
+
+<!-- SCRIPT TOGGLE -->
+<script>
+function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('hidden');
+}
+</script>

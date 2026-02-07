@@ -90,34 +90,76 @@ $gambarPath = "uploads/struktur/" . $gambarFile;
 <!-- ================= BATAS & PETA ================= -->
 <section class="grid md:grid-cols-2 gap-10 items-start">
 
-<div class="bg-[#d8e6c9] p-8 rounded-xl space-y-4">
-<h3 class="font-semibold text-lg">Batas Wilayah Desa:</h3>
+  <!-- CARD INFO DESA -->
+  <div class="bg-white p-8 rounded-xl shadow space-y-6">
 
-<?php if ($batas): ?>
-<ul class="text-gray-700 text-sm space-y-1">
-    <li><strong>Utara:</strong> <?= $batas['utara'] ?></li>
-    <li><strong>Barat:</strong> <?= $batas['barat'] ?></li>
-    <li><strong>Timur:</strong> <?= $batas['timur'] ?></li>
-    <li><strong>Selatan:</strong> <?= $batas['selatan'] ?></li>
-</ul>
-<?php endif; ?>
+    <!-- BATAS WILAYAH -->
+    <div>
+      <h3 class="font-semibold text-lg mb-4">Batas Wilayah Desa</h3>
 
-<hr class="my-4">
+      <?php if ($batas): ?>
+      <ul class="text-sm text-gray-700 divide-y">
+        <li class="py-2 flex justify-between">
+          <span class="font-medium">Utara</span>
+          <span><?= $batas['utara'] ?></span>
+        </li>
+        <li class="py-2 flex justify-between">
+          <span class="font-medium">Barat</span>
+          <span><?= $batas['barat'] ?></span>
+        </li>
+        <li class="py-2 flex justify-between">
+          <span class="font-medium">Timur</span>
+          <span><?= $batas['timur'] ?></span>
+        </li>
+        <li class="py-2 flex justify-between">
+          <span class="font-medium">Selatan</span>
+          <span><?= $batas['selatan'] ?></span>
+        </li>
+      </ul>
+      <?php endif; ?>
+    </div>
 
-<p class="text-sm"><strong>Luas Wilayah:</strong> <?= $profil['luas_wilayah'] ?? '-' ?></p>
-<p class="text-sm"><strong>Jumlah Dusun:</strong> <?= $profil['jumlah_dusun'] ?? '-' ?></p>
-<p class="text-sm"><strong>Nama Dusun:</strong> <?= $profil['nama_dusun'] ?? '-' ?></p>
-<p class="text-sm"><strong>Jumlah RT:</strong> <?= $profil['jumlah_rt'] ?? '-' ?></p>
-</div>
+    <!-- DATA WILAYAH / DUSUN -->
+    <div>
+      <h3 class="font-semibold text-lg mb-4">Informasi Wilayah</h3>
 
-<div>
-<h3 class="font-semibold text-lg mb-4">Peta Desa Ngargosari</h3>
-<div class="border rounded-xl overflow-hidden">
-<iframe class="w-full h-72 rounded-lg"
-src="https://www.google.com/maps?q=Desa+Ngargosari+Loano+Purworejo&output=embed"
-loading="lazy"></iframe>
-</div>
-</div>
+      <div class="grid grid-cols-2 gap-4 text-sm">
+        <div class="border rounded-lg p-4">
+          <p class="text-gray-500">Luas Wilayah</p>
+          <p class="font-semibold"><?= $profil['luas_wilayah'] ?? '-' ?></p>
+        </div>
+
+        <div class="border rounded-lg p-4">
+          <p class="text-gray-500">Jumlah Dusun</p>
+          <p class="font-semibold"><?= $profil['jumlah_dusun'] ?? '-' ?></p>
+        </div>
+
+        <div class="border rounded-lg p-4">
+          <p class="text-gray-500">Jumlah RT</p>
+          <p class="font-semibold"><?= $profil['jumlah_rt'] ?? '-' ?></p>
+        </div>
+
+        <div class="border rounded-lg p-4 col-span-2">
+          <p class="text-gray-500">Nama Dusun</p>
+          <p class="font-semibold"><?= $profil['nama_dusun'] ?? '-' ?></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CARD PETA -->
+  <div class="bg-white p-6 rounded-xl shadow">
+    <h3 class="font-semibold text-lg mb-4">Peta Desa Ngargosari</h3>
+
+    <div class="rounded-xl overflow-hidden border">
+      <iframe
+        class="w-full h-72"
+        src="https://www.google.com/maps?q=Desa+Ngargosari+Loano+Purworejo&output=embed"
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
 
 </section>
 
