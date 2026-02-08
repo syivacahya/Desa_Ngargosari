@@ -29,7 +29,7 @@ if (!isset($halaman)) {
 
         <!-- LOGO -->
         <div class="flex items-center gap-3 font-semibold">
-            <img src="assets/img/logo.png" class="w-10">
+            <img src="../assets/img/logo.png" alt="Logo Desa" class="w-10">
             Desa Ngargosari
         </div>
 

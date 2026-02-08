@@ -5,7 +5,7 @@ if (!isset($_SESSION['login'])) {
     exit;
 }
 
-require_once "../koneksi.php";
+require_once "../public/koneksi.php";
 
 // Ambil semua data berita
 $query = mysqli_query($koneksi, "SELECT id, judul, isi, gambar, tanggal FROM berita ORDER BY tanggal DESC");

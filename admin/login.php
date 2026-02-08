@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "../koneksi.php"; // PATH FIX
+require_once "../public/koneksi.php"; // PATH FIX
 
 // Redirect ke dashboard kalau sudah login
 if (isset($_SESSION['login']) && $_SESSION['login'] === true) {

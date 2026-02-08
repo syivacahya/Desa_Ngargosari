@@ -5,7 +5,7 @@ if (!isset($_SESSION['login'])) {
     exit;
 }
 
-require_once "../koneksi.php";
+require_once "../public/koneksi.php";
 
 if (isset($_POST['simpan'])) {
 

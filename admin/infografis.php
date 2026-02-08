@@ -4,7 +4,7 @@ if (!isset($_SESSION['login'])) {
     header("Location: login.php");
     exit;
 }
-require_once "../koneksi.php";
+require_once "../public/koneksi.php";
 
 /* ================= JUMLAH PENDUDUK ================= */
 $penduduk = mysqli_query($koneksi, "SELECT * FROM infografis_penduduk ORDER BY tahun DESC");

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "../koneksi.php";
+include "../public/koneksi.php";
 if(!isset($_SESSION['login'])) exit;
 
 $id = $_GET['id'];

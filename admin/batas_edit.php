@@ -5,7 +5,7 @@ if (!isset($_SESSION['login'])) {
     exit;
 }
 
-require_once "../koneksi.php";
+require_once "../public/koneksi.php";
 
 $id = (int) $_GET['id'];
 $data = mysqli_query($koneksi, "SELECT * FROM batas_wilayah WHERE id=$id");

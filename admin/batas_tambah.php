@@ -5,7 +5,7 @@ if (!isset($_SESSION['login'])) {
     exit;
 }
 
-require_once "../koneksi.php";
+require_once "../public/koneksi.php";
 
 // Cek apakah batas wilayah sudah ada (karena hanya 1 data)
 $cek = mysqli_query($koneksi, "SELECT id FROM batas_wilayah LIMIT 1");

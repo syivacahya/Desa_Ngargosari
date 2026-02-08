@@ -9,7 +9,7 @@
 
             <!-- LOGO + NAMA -->
             <div class="flex items-center gap-3">
-                <img src="assets/img/logo.png" class="w-12">
+                <img src="../assets/img/logo.png" class="w-12">
                 <span class="font-semibold text-base">
                     Pemerintah Desa Ngargosari
                 </span>

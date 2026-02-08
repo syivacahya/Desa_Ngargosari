@@ -5,7 +5,7 @@ if (!isset($_SESSION['login'])) {
     exit;
 }
 
-require_once "../koneksi.php";
+require_once "../public/koneksi.php";
 
 $id = $_GET['id'] ?? 0;
 $q = mysqli_query($koneksi, "SELECT * FROM struktur_pemerintahan WHERE id='$id'");
