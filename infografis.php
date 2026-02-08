@@ -1,7 +1,7 @@
 <?php
 include "koneksi.php";
 $halaman = basename($_SERVER['PHP_SELF']);
-require_once __DIR__ . "/../partials/header.php";
+require_once __DIR__ . "/partials/header.php";
 
 /* ================= Ambil tahun terbaru ================= */
 $queryLatestYear = mysqli_query($koneksi, "SELECT tahun FROM infografis_umur ORDER BY tahun DESC LIMIT 1");
@@ -154,7 +154,7 @@ body { font-family: 'Poppins', sans-serif; }
 
 </main>
 
-<?php require_once __DIR__ . "/../partials/footer.php"; ?>
+<?php require_once __DIR__ . "/partials/footer.php"; ?>
 
 <!-- ================= SCRIPT GRAFIK ================= -->
 <script>

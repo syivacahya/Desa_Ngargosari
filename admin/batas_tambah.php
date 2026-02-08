@@ -5,7 +5,8 @@ if (!isset($_SESSION['login'])) {
     exit;
 }
 
-require_once "../public/koneksi.php";
+require_once "../koneksi.php";
+
 
 // Cek apakah batas wilayah sudah ada
 $cek = mysqli_query($koneksi, "SELECT id FROM batas_wilayah LIMIT 1");
@@ -110,7 +111,7 @@ if (isset($_POST['simpan'])) {
                 <div class="flex gap-3 pt-4">
                     <button type="submit" name="simpan"
                             class="bg-green-700 hover:bg-green-800 text-white px-5 py-2 rounded">
-                        💾 Simpan
+                        Simpan
                     </button>
 
                     <a href="profil.php"

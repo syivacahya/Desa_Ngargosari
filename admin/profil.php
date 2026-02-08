@@ -5,7 +5,8 @@ if (!isset($_SESSION['login'])) {
     exit;
 }
 
-require_once "../public/koneksi.php";
+require_once "../koneksi.php";
+
 
 $qProfil    = mysqli_query($koneksi, "SELECT * FROM profil_desa LIMIT 1");
 $profil     = mysqli_fetch_assoc($qProfil);

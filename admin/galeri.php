@@ -5,7 +5,8 @@ if (!isset($_SESSION['login'])) {
     exit;
 }
 
-require_once "../public/koneksi.php";
+require_once "../koneksi.php";
+
 
 // Ambil semua data galeri
 $query = mysqli_query($koneksi, "SELECT id, judul, gambar FROM galeri ORDER BY id DESC");

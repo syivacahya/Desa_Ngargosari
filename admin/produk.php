@@ -4,7 +4,8 @@ if(!isset($_SESSION['login'])){
     header("Location: login.php");
     exit;
 }
-require_once "../public/koneksi.php";
+require_once "../koneksi.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="id">

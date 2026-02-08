@@ -1,7 +1,7 @@
 <?php
 include "koneksi.php";
 $halaman = basename($_SERVER['PHP_SELF']);
-require_once __DIR__ . "/../partials/header.php";
+require_once __DIR__ . "/partials/header.php";
 
 // Ambil data galeri
 $data = mysqli_query($koneksi, "SELECT id, judul, gambar FROM galeri ORDER BY id DESC");
@@ -70,7 +70,7 @@ $data = mysqli_query($koneksi, "SELECT id, judul, gambar FROM galeri ORDER BY id
     </main>
 
     <!-- FOOTER -->
-    <?php require_once __DIR__ . "/../partials/footer.php"; ?>
+    <?php require_once __DIR__ . "/partials/footer.php"; ?>
 
 </div>
 

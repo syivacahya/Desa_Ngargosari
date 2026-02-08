@@ -1,7 +1,7 @@
 <?php
 include "koneksi.php";
 $halaman = basename($_SERVER['PHP_SELF']);
-require_once __DIR__ . "/../partials/header.php";
+require_once __DIR__ . "/partials/header.php";
 
 if (!isset($_GET['id'])) {
     header("Location: produk.php");
@@ -48,10 +48,10 @@ $link_wa = "https://wa.me/$no_wa?text=$pesan";
         <!-- GAMBAR PRODUK -->
         <div class="w-full">
             <div class="rounded-xl overflow-hidden shadow-lg bg-white">
-                <img src="../assets/img/produk/<?= htmlspecialchars($data['gambar']) ?>"
+                <img src="assets/img/produk/<?= htmlspecialchars($data['gambar']) ?>"
                      alt="<?= htmlspecialchars($data['nama_produk']) ?>"
                      class="w-full h-64 sm:h-80 md:h-[380px] object-cover"
-                     onerror="this.src='../assets/img/no-image.png'">
+                     onerror="this.src='assets/img/no-image.png'">
             </div>
         </div>
 
@@ -106,6 +106,6 @@ $link_wa = "https://wa.me/$no_wa?text=$pesan";
 
 </main>
 
-<?php require_once __DIR__ . "/../partials/footer.php"; ?>
+<?php require_once __DIR__ . "/partials/footer.php"; ?>
 </body>
 </html>

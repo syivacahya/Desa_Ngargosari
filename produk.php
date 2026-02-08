@@ -1,7 +1,7 @@
 <?php
 include "koneksi.php";
 $halaman = basename($_SERVER['PHP_SELF']);
-require_once __DIR__ . "/../partials/header.php";
+require_once __DIR__ . "/partials/header.php";
 
 /* AMBIL DATA PRODUK */
 $data = mysqli_query($koneksi,"
@@ -35,10 +35,10 @@ $data = mysqli_query($koneksi,"
 
                     <!-- GAMBAR -->
                     <div class="overflow-hidden">
-                        <img src="../assets/img/produk/<?= htmlspecialchars($p['gambar']) ?>"
+                        <img src="/assets/img/produk/<?= htmlspecialchars($p['gambar']) ?>"
                              class="w-full h-44 sm:h-48 object-cover
                                     group-hover:scale-105 transition duration-300"
-                             onerror="this.src='../assets/img/no-image.png'">
+                             onerror="this.src='assets/img/no-image.png'">
                     </div>
 
                     <!-- INFO -->
@@ -67,6 +67,6 @@ $data = mysqli_query($koneksi,"
     </main>
 
     <!-- FOOTER -->
-    <?php require_once __DIR__ . "/../partials/footer.php"; ?>
+    <?php require_once __DIR__ . "/partials/footer.php"; ?>
 
 </div>

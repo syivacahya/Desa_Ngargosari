@@ -5,7 +5,8 @@ if (!isset($_SESSION['login'])) {
     exit;
 }
 
-require_once "../public/koneksi.php";
+require_once "../koneksi.php";
+
 
 $id = (int) ($_GET['id'] ?? 0);
 $data = mysqli_query($koneksi, "SELECT * FROM batas_wilayah WHERE id=$id");
@@ -132,7 +133,7 @@ tailwind.config = {
                 <div class="flex gap-3 pt-4">
                     <button type="submit" name="update"
                             class="bg-yellow-500 hover:bg-yellow-600 text-white px-5 py-2 rounded">
-                        ✏️ Update
+                         Update
                     </button>
 
                     <a href="profil.php"

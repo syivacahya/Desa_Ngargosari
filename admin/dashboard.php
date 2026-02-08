@@ -6,7 +6,8 @@ if (!isset($_SESSION['login'])) {
     exit;
 }
 
-require_once "../public/koneksi.php";
+require_once "../koneksi.php";
+
 
 /* PRODUK */
 $qProduk = mysqli_query($koneksi, "SELECT COUNT(*) AS total FROM produk");

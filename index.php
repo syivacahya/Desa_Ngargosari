@@ -1,20 +1,20 @@
 <?php
 include "koneksi.php";
 $halaman = basename($_SERVER['PHP_SELF']);
-require_once __DIR__ . "/../partials/header.php";
+require_once __DIR__ . "/partials/header.php";
 ?>
 
 <!-- ================= HERO ================= -->
 <section class="relative min-h-[90vh] sm:min-h-screen flex items-center overflow-hidden">
     <div class="absolute inset-0">
-        <img src="../assets/img/bgindex.jpg"
+        <img src="assets/img/bgindex.jpg"
              class="w-full h-full object-cover"
              alt="Background Desa Ngargosari">
     </div>
     <div class="absolute inset-0 bg-black/60"></div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-white text-center md:text-left">
-        <img src="../assets/img/logo.png"
+        <img src="assets/img/logo.png"
              class="w-20 sm:w-28 mx-auto md:mx-0 mb-4"
              alt="Logo Desa Ngargosari">
 
@@ -55,14 +55,14 @@ require_once __DIR__ . "/../partials/header.php";
         if ($qProduk && mysqli_num_rows($qProduk) > 0):
             while ($p = mysqli_fetch_assoc($qProduk)):
                 $imgProduk = !empty($p['gambar'])
-                    ? "../assets/img/produk/".htmlspecialchars($p['gambar'])
-                    : "../assets/img/no-image.png";
+                    ? "assets/img/produk/".htmlspecialchars($p['gambar'])
+                    : "assets/img/no-image.png";
                 $noWA = !empty($p['no_wa']) ? htmlspecialchars($p['no_wa']) : '';
         ?>
         <div class="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden group">
             <img src="<?= $imgProduk ?>"
                  class="w-full h-36 sm:h-40 object-cover group-hover:scale-105 transition"
-                 onerror="this.src='../assets/img/no-image.png'"
+                 onerror="this.src='/assets/img/no-image.png'"
                  alt="<?= htmlspecialchars($p['nama_produk']); ?>">
 
             <div class="p-4 text-center">
@@ -104,13 +104,13 @@ require_once __DIR__ . "/../partials/header.php";
         if ($qBerita && mysqli_num_rows($qBerita) > 0):
             while ($b = mysqli_fetch_assoc($qBerita)):
                 $imgBerita = !empty($b['gambar'])
-                    ? "../assets/img/berita/".htmlspecialchars($b['gambar'])
-                    : "../assets/img/no-image.png";
+                    ? "assets/img/berita/".htmlspecialchars($b['gambar'])
+                    : "assets/img/no-image.png";
         ?>
         <div class="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden">
             <img src="<?= $imgBerita ?>"
                  class="w-full h-36 sm:h-40 object-cover"
-                 onerror="this.src='../assets/img/no-image.png'"
+                 onerror="this.src='assets/img/no-image.png'"
                  alt="<?= htmlspecialchars($b['judul']); ?>">
 
             <div class="p-5">
@@ -155,9 +155,9 @@ require_once __DIR__ . "/../partials/header.php";
         if ($qGaleri && mysqli_num_rows($qGaleri) > 0):
             while ($g = mysqli_fetch_assoc($qGaleri)):
 
-                $gambarPath = "../assets/img/galeri/".$g['gambar'];
+                $gambarPath = "assets/img/galeri/".$g['gambar'];
                 if (empty($g['gambar']) || !file_exists($gambarPath)) {
-                    $gambarPath = "../assets/img/no-image.png";
+                    $gambarPath = "assets/img/no-image.png";
                 }
         ?>
         <div class="relative overflow-hidden rounded-lg shadow cursor-pointer group"
@@ -231,4 +231,4 @@ function closeGalleryModal() {
 }
 </script>
 
-<?php require_once __DIR__ . "/../partials/footer.php"; ?>
+<?php require_once __DIR__ . "/partials/footer.php"; ?>

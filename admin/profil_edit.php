@@ -5,7 +5,8 @@ if (!isset($_SESSION['login'])) {
     exit;
 }
 
-require_once "../public/koneksi.php";
+require_once "../koneksi.php";
+
 
 $data = mysqli_fetch_assoc(mysqli_query($koneksi,
         "SELECT * FROM profil_desa WHERE id='$_GET[id]'"));

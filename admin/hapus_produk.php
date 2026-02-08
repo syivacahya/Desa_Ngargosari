@@ -1,7 +1,8 @@
 <?php
 session_start();
 
-require_once '../public/koneksi.php';
+require_once "../koneksi.php";
+
 
 
 if(!isset($_SESSION['login'])){

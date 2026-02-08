@@ -5,7 +5,8 @@ if (!isset($_SESSION['login'])) {
     exit;
 }
 
-require_once "../public/koneksi.php";
+require_once "../koneksi.php";
+
 
 // Ambil semua data berita
 $query = mysqli_query($koneksi, "SELECT id, judul, isi, gambar, tanggal FROM berita ORDER BY tanggal DESC");
@@ -225,7 +226,7 @@ function editBerita(data){
     document.getElementById('editTanggal').value = data.tanggal;
     document.getElementById('editIsi').value = data.isi;
     if(data.gambar){
-        document.getElementById('previewGambar').src = "../assets/img/berita/" + data.gambar;
+        document.getElementById('previewGambar').src = "assets/img/berita/" + data.gambar;
     } else {
         document.getElementById('previewGambar').src = "";
     }

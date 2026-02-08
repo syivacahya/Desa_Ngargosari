@@ -1,7 +1,7 @@
 <?php
 include "koneksi.php";
 $halaman = basename($_SERVER['PHP_SELF']);
-require_once __DIR__ . "/../partials/header.php";
+require_once __DIR__ . "/partials/header.php";
 
 /* AMBIL DATA */
 $qProfil   = mysqli_query($koneksi, "SELECT * FROM profil_desa LIMIT 1");
@@ -170,6 +170,6 @@ $gambarPath = "uploads/struktur/" . $gambarFile;
 
 </main>
 
-<?php require_once __DIR__ . "/../partials/footer.php"; ?>
+<?php require_once __DIR__ . "/partials/footer.php"; ?>
 </body>
 </html>
