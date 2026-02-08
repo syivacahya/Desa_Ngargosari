@@ -35,10 +35,10 @@ $data = mysqli_query($koneksi, "SELECT id, judul, gambar FROM galeri ORDER BY id
 
                 <?php
                     $gambarFile = $g['gambar'];
-                    $gambarPath = "../assets/img/galeri/" . $gambarFile;
+                    $gambarPath = "assets/img/galeri/" . $gambarFile;
 
                     if (empty($gambarFile) || !file_exists($gambarPath)) {
-                        $gambarPath = "../assets/img/no-image.png";
+                        $gambarPath = "assets/img/no-image.png";
                     }
                 ?>
 
