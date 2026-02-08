@@ -43,10 +43,7 @@ while ($row = mysqli_fetch_assoc($qGrafik)) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Infografis Desa Ngargosari</title>
 
-<!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
-
-<!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -58,18 +55,25 @@ body { font-family: 'Poppins', sans-serif; }
 <body class="bg-gray-50 text-gray-800">
 
 <!-- ================= MAIN ================= -->
-<main class="max-w-6xl mx-auto px-6 py-12 space-y-12">
+<main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-10 sm:space-y-12">
 
     <!-- ================= JUDUL ================= -->
     <div class="text-center">
-        <h1 class="text-3xl font-semibold mb-2">Infografis Data Kependudukan Desa</h1>
-        <p class="text-gray-500">Tahun <?= $latestYear ?></p>
+        <h1 class="text-2xl sm:text-3xl font-semibold mb-1 sm:mb-2">
+            Infografis Data Kependudukan Desa
+        </h1>
+        <p class="text-gray-500 text-sm sm:text-base">
+            Tahun <?= $latestYear ?>
+        </p>
     </div>
 
     <!-- ================= TABEL JUMLAH PENDUDUK ================= -->
     <div class="bg-white rounded-xl shadow overflow-x-auto">
-        <h3 class="font-semibold text-lg p-4">Jumlah Penduduk</h3>
-        <table class="w-full text-sm text-center border-collapse">
+        <h3 class="font-semibold text-base sm:text-lg p-4">
+            Jumlah Penduduk
+        </h3>
+
+        <table class="min-w-[640px] w-full text-sm text-center border-collapse">
             <thead class="bg-green-700 text-white">
                 <tr>
                     <th class="p-3 border">Tahun</th>
@@ -103,8 +107,11 @@ body { font-family: 'Poppins', sans-serif; }
 
     <!-- ================= TABEL KELOMPOK UMUR ================= -->
     <div class="bg-white rounded-xl shadow overflow-x-auto">
-        <h3 class="font-semibold text-lg p-4">Penduduk Berdasarkan Kelompok Umur</h3>
-        <table class="w-full text-sm text-center border-collapse">
+        <h3 class="font-semibold text-base sm:text-lg p-4">
+            Penduduk Berdasarkan Kelompok Umur
+        </h3>
+
+        <table class="min-w-[600px] w-full text-sm text-center border-collapse">
             <thead class="bg-green-700 text-white">
                 <tr>
                     <th class="p-3 border">Tahun</th>
@@ -135,9 +142,14 @@ body { font-family: 'Poppins', sans-serif; }
     </div>
 
     <!-- ================= GRAFIK UMUR ================= -->
-    <div class="bg-white rounded-xl shadow p-6">
-        <h3 class="font-semibold text-lg mb-6 text-center">Penduduk Berdasarkan Kelompok Umur (Tahun <?= $latestYear ?>)</h3>
-        <canvas id="grafikUmur" height="120"></canvas>
+    <div class="bg-white rounded-xl shadow p-4 sm:p-6">
+        <h3 class="font-semibold text-base sm:text-lg mb-4 sm:mb-6 text-center">
+            Penduduk Berdasarkan Kelompok Umur (<?= $latestYear ?>)
+        </h3>
+
+        <div class="relative w-full h-[300px] sm:h-[380px]">
+            <canvas id="grafikUmur"></canvas>
+        </div>
     </div>
 
 </main>
@@ -167,8 +179,17 @@ new Chart(ctx, {
     },
     options: {
         responsive: true,
-        plugins: { legend: { position: 'top' } },
-        scales: { y: { beginAtZero: true } }
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'top'
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
     }
 });
 </script>

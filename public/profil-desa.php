@@ -1,4 +1,3 @@
-
 <?php
 include "koneksi.php";
 $halaman = basename($_SERVER['PHP_SELF']);
@@ -30,37 +29,39 @@ body { font-family: 'Poppins', sans-serif; }
 
 <body class="bg-[#F3F4F6]">
 
-<main class="max-w-6xl mx-auto px-6 py-12 space-y-16">
+<main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-12 sm:space-y-16">
 
 <!-- ================= VISI ================= -->
 <section>
-<div class="bg-white p-8 rounded-xl text-gray-700 text-center leading-relaxed">
-    <h2 class="text-2xl font-semibold mb-6">VISI</h2>
+  <div class="bg-white p-6 sm:p-8 rounded-xl text-gray-700 text-center leading-relaxed text-sm sm:text-base">
+    <h2 class="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">VISI</h2>
     <?= nl2br($profil['visi'] ?? '-') ?>
-</div>
+  </div>
 </section>
 
 <!-- ================= MISI ================= -->
 <section>
-<div class="bg-white p-8 rounded-xl text-gray-700 text-center leading-relaxed">
-    <h2 class="text-2xl font-semibold mb-6">MISI</h2>
+  <div class="bg-white p-6 sm:p-8 rounded-xl text-gray-700 text-center leading-relaxed text-sm sm:text-base">
+    <h2 class="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">MISI</h2>
     <?= nl2br($profil['misi'] ?? '-') ?>
-</div>
+  </div>
 </section>
 
 <!-- ================= SEJARAH ================= -->
 <section>
-<div class="bg-white p-8 rounded-xl text-gray-700 text-center leading-relaxed">
-    <h2 class="text-2xl font-semibold mb-6">Sejarah Desa</h2>
+  <div class="bg-white p-6 sm:p-8 rounded-xl text-gray-700 text-center leading-relaxed text-sm sm:text-base">
+    <h2 class="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">Sejarah Desa</h2>
     <?= nl2br($profil['sejarah'] ?? '-') ?>
-</div>
+  </div>
 </section>
 
 <!-- ================= PEMERINTAHAN ================= -->
 <section>
-<h2 class="text-2xl font-semibold mb-8">Pemerintahan Desa</h2>
+<h2 class="text-xl sm:text-2xl font-semibold mb-6 sm:mb-8 text-center sm:text-left">
+  Pemerintahan Desa
+</h2>
 
-<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
 <?php if (mysqli_num_rows($qStruktur) > 0): ?>
 <?php while ($s = mysqli_fetch_assoc($qStruktur)): ?>
 
@@ -69,17 +70,21 @@ $gambarFile = $s['gambar'];
 $gambarPath = "uploads/struktur/" . $gambarFile;
 ?>
 
-<div class="border rounded-lg p-4 text-center shadow-sm">
-    <?php if (!empty($gambarFile) && file_exists($gambarPath)): ?>
-        <img src="<?= $gambarPath ?>"
-             class="w-20 h-20 mx-auto object-cover rounded-md mb-3">
-    <?php else: ?>
-        <img src="assets/img/no-image.png"
-             class="w-20 h-20 mx-auto object-cover rounded-md mb-3">
-    <?php endif; ?>
+<div class="border rounded-xl p-3 sm:p-4 text-center shadow-sm bg-white">
+  <?php if (!empty($gambarFile) && file_exists($gambarPath)): ?>
+    <img src="<?= $gambarPath ?>"
+         class="w-16 h-16 sm:w-20 sm:h-20 mx-auto object-cover rounded-lg mb-2 sm:mb-3">
+  <?php else: ?>
+    <img src="assets/img/no-image.png"
+         class="w-16 h-16 sm:w-20 sm:h-20 mx-auto object-cover rounded-lg mb-2 sm:mb-3">
+  <?php endif; ?>
 
-    <p class="font-semibold text-sm"><?= htmlspecialchars($s['jabatan']) ?></p>
-    <p class="text-xs text-gray-500"><?= htmlspecialchars($s['nama']) ?></p>
+  <p class="font-semibold text-xs sm:text-sm leading-tight">
+    <?= htmlspecialchars($s['jabatan']) ?>
+  </p>
+  <p class="text-[11px] sm:text-xs text-gray-500">
+    <?= htmlspecialchars($s['nama']) ?>
+  </p>
 </div>
 
 <?php endwhile; ?>
@@ -88,10 +93,10 @@ $gambarPath = "uploads/struktur/" . $gambarFile;
 </section>
 
 <!-- ================= BATAS & PETA ================= -->
-<section class="grid md:grid-cols-2 gap-10 items-start">
+<section class="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 items-start">
 
   <!-- CARD INFO DESA -->
-  <div class="bg-white p-8 rounded-xl shadow space-y-6">
+  <div class="bg-white p-6 sm:p-8 rounded-xl shadow space-y-6">
 
     <!-- BATAS WILAYAH -->
     <div>
@@ -119,11 +124,11 @@ $gambarPath = "uploads/struktur/" . $gambarFile;
       <?php endif; ?>
     </div>
 
-    <!-- DATA WILAYAH / DUSUN -->
+    <!-- INFORMASI WILAYAH -->
     <div>
       <h3 class="font-semibold text-lg mb-4">Informasi Wilayah</h3>
 
-      <div class="grid grid-cols-2 gap-4 text-sm">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
         <div class="border rounded-lg p-4">
           <p class="text-gray-500">Luas Wilayah</p>
           <p class="font-semibold"><?= $profil['luas_wilayah'] ?? '-' ?></p>
@@ -139,7 +144,7 @@ $gambarPath = "uploads/struktur/" . $gambarFile;
           <p class="font-semibold"><?= $profil['jumlah_rt'] ?? '-' ?></p>
         </div>
 
-        <div class="border rounded-lg p-4 col-span-2">
+        <div class="border rounded-lg p-4 sm:col-span-2">
           <p class="text-gray-500">Nama Dusun</p>
           <p class="font-semibold"><?= $profil['nama_dusun'] ?? '-' ?></p>
         </div>
@@ -149,12 +154,12 @@ $gambarPath = "uploads/struktur/" . $gambarFile;
   </div>
 
   <!-- CARD PETA -->
-  <div class="bg-white p-6 rounded-xl shadow">
+  <div class="bg-white p-5 sm:p-6 rounded-xl shadow">
     <h3 class="font-semibold text-lg mb-4">Peta Desa Ngargosari</h3>
 
     <div class="rounded-xl overflow-hidden border">
       <iframe
-        class="w-full h-72"
+        class="w-full h-60 sm:h-72 md:h-80"
         src="https://www.google.com/maps?q=Desa+Ngargosari+Loano+Purworejo&output=embed"
         loading="lazy">
       </iframe>
