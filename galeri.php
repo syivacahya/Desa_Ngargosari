@@ -7,53 +7,73 @@ include "partials/header.php";
 $data = mysqli_query($koneksi, "SELECT id, judul, gambar FROM galeri ORDER BY id DESC");
 ?>
 
-<main class="flex-1 max-w-7xl mx-auto px-6 py-12 bg-gray-100">
+<!-- WRAPPER UTAMA -->
+<div class="flex flex-col min-h-screen bg-gray-100">
 
-<?php if (mysqli_num_rows($data) == 0): ?>
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 max-w-7xl mx-auto px-6 py-12 w-full">
 
-    <p class="text-gray-500 text-center text-lg">Belum ada data galeri.</p>
+        <!-- TITLE KONTEN -->
+        <h1 class="text-3xl font-semibold text-center text-gray-800 mb-10">
+            Galeri Desa
+        </h1>
 
-<?php else: ?>
+        <?php if (mysqli_num_rows($data) == 0): ?>
 
-<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            <!-- KONDISI KOSONG -->
+            <div class="flex items-center justify-center h-64">
+                <p class="text-gray-500 text-center text-lg">
+                    Belum ada data galeri.
+                </p>
+            </div>
 
-<?php while ($g = mysqli_fetch_assoc($data)): ?>
+        <?php else: ?>
 
-<?php
-$gambarFile = $g['gambar'];
-$gambarPath = "assets/img/galeri/" . $gambarFile;
+            <!-- GRID GALERI -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
 
-if (empty($gambarFile) || !file_exists($gambarPath)) {
-    $gambarPath = "assets/img/no-image.png";
-}
-?>
+                <?php while ($g = mysqli_fetch_assoc($data)): ?>
 
-<div class="relative overflow-hidden rounded-lg cursor-pointer group aspect-square shadow-sm"
-     onclick="openGalleryModal(
-        '<?= $gambarPath ?>',
-        '<?= htmlspecialchars($g['judul'], ENT_QUOTES) ?>'
-     )">
+                <?php
+                $gambarFile = $g['gambar'];
+                $gambarPath = "assets/img/galeri/" . $gambarFile;
 
-    <img src="<?= $gambarPath ?>"
-         alt="<?= htmlspecialchars($g['judul']) ?>"
-         class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                if (empty($gambarFile) || !file_exists($gambarPath)) {
+                    $gambarPath = "assets/img/no-image.png";
+                }
+                ?>
 
-    <!-- Overlay Judul -->
-    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-end">
-        <div class="p-3 text-white text-sm font-medium">
-            <?= htmlspecialchars($g['judul']) ?>
-        </div>
-    </div>
+                <div class="relative overflow-hidden rounded-lg cursor-pointer group aspect-square shadow-sm"
+                     onclick="openGalleryModal(
+                        '<?= $gambarPath ?>',
+                        '<?= htmlspecialchars($g['judul'], ENT_QUOTES) ?>'
+                     )">
+
+                    <img src="<?= $gambarPath ?>"
+                         alt="<?= htmlspecialchars($g['judul']) ?>"
+                         class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+
+                    <!-- Overlay Judul -->
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-end">
+                        <div class="p-3 text-white text-sm font-medium">
+                            <?= htmlspecialchars($g['judul']) ?>
+                        </div>
+                    </div>
+
+                </div>
+
+                <?php endwhile; ?>
+
+            </div>
+
+        <?php endif; ?>
+
+    </main>
+
+    <!-- FOOTER -->
+    <?php include "partials/footer.php"; ?>
 
 </div>
-
-<?php endwhile; ?>
-
-</div>
-
-<?php endif; ?>
-
-</main>
 
 <!-- MODAL DETAIL GALERI -->
 <div id="galleryModal" class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center px-4">
@@ -82,5 +102,3 @@ function closeGalleryModal(){
     document.getElementById('galleryModal').classList.add('hidden');
 }
 </script>
-
-<?php include "partials/footer.php"; ?>

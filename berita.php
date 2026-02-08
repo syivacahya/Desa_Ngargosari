@@ -21,56 +21,73 @@ $query = mysqli_query($koneksi, "
 
 <body class="bg-gray-100">
 
-<section class="max-w-7xl mx-auto px-6 py-16">
-  <h1 class="text-3xl font-semibold text-center mb-12">Berita Desa</h1>
+<!-- WRAPPER UTAMA -->
+<div class="flex flex-col min-h-screen">
 
-  <!-- GRID -->
-  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  <!-- MAIN CONTENT -->
+  <main class="flex-1">
 
-    <?php if (mysqli_num_rows($query) > 0): ?>
-      <?php while ($row = mysqli_fetch_assoc($query)): ?>
+    <section class="max-w-7xl mx-auto px-6 py-16">
+      <h1 class="text-3xl font-semibold text-center mb-12">Berita Desa</h1>
 
-        <article class="bg-white rounded-lg shadow-sm hover:shadow-md transition overflow-hidden">
+      <!-- GRID -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-          <!-- Gambar -->
-          <img
-            src="assets/img/berita/<?= htmlspecialchars($row['gambar']) ?>"
-            class="w-full h-40 object-cover"
-            onerror="this.src='assets/img/no-image.png'"
-          >
+        <?php if (mysqli_num_rows($query) > 0): ?>
+          <?php while ($row = mysqli_fetch_assoc($query)): ?>
 
-          <!-- Konten -->
-          <div class="p-4 space-y-2">
-            <p class="text-xs text-gray-500">
-              <?= date('d F Y', strtotime($row['tanggal'])) ?>
+            <article class="bg-white rounded-lg shadow-sm hover:shadow-md transition overflow-hidden">
+
+              <!-- Gambar -->
+              <img
+                src="assets/img/berita/<?= htmlspecialchars($row['gambar']) ?>"
+                class="w-full h-40 object-cover"
+                onerror="this.src='assets/img/no-image.png'"
+              >
+
+              <!-- Konten -->
+              <div class="p-4 space-y-2">
+                <p class="text-xs text-gray-500">
+                  <?= date('d F Y', strtotime($row['tanggal'])) ?>
+                </p>
+
+                <h2 class="text-base font-semibold leading-snug line-clamp-2">
+                  <?= htmlspecialchars($row['judul']) ?>
+                </h2>
+
+                <p class="text-gray-600 text-sm leading-relaxed line-clamp-3">
+                  <?= substr(strip_tags($row['isi']), 0, 90) ?>...
+                </p>
+
+                <a href="berita-detail.php?id=<?= $row['id'] ?>"
+                   class="inline-block mt-2 text-green-700 text-sm font-semibold hover:underline">
+                  Baca Selengkapnya →
+                </a>
+              </div>
+
+            </article>
+
+          <?php endwhile; ?>
+        <?php else: ?>
+
+          <!-- KONDISI KOSONG -->
+          <div class="col-span-full flex items-center justify-center h-64">
+            <p class="text-center text-gray-500 text-lg">
+              Belum ada berita.
             </p>
-
-            <h2 class="text-base font-semibold leading-snug line-clamp-2">
-              <?= htmlspecialchars($row['judul']) ?>
-            </h2>
-
-            <p class="text-gray-600 text-sm leading-relaxed line-clamp-3">
-              <?= substr(strip_tags($row['isi']), 0, 90) ?>...
-            </p>
-
-            <a href="berita-detail.php?id=<?= $row['id'] ?>"
-               class="inline-block mt-2 text-green-700 text-sm font-semibold hover:underline">
-              Baca Selengkapnya →
-            </a>
           </div>
 
-        </article>
+        <?php endif; ?>
 
-      <?php endwhile; ?>
-    <?php else: ?>
-      <p class="text-center text-gray-500 col-span-full">
-        Belum ada berita.
-      </p>
-    <?php endif; ?>
+      </div>
+    </section>
 
-  </div>
-</section>
+  </main>
 
-<?php include "partials/footer.php"; ?>
+  <!-- FOOTER -->
+  <?php include "partials/footer.php"; ?>
+
+</div>
+
 </body>
 </html>
